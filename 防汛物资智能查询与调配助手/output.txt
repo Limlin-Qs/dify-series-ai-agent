@@ -1,0 +1,10 @@
+================================================================================
+FILE: 防汛物资总表汇总.xlsx
+================================================================================
+Columns: ['线路/中心', '防汛沙袋(个)', '吸水膨胀袋(个)', '防雨篷布(块)', '救生衣(件)', '安全绳(根)', '防洪挡板(组)', 'L型轻型防洪挡板(块)', '新型防淹挡板(组)', '水动力全自动防洪闸(组)', '大流量排水泵数量(台)', '大流量排水泵详情', '潜水泵(台)', '自吸泵(台)']
+Shape: (9, 14)
+
+Traceback (most recent call last):
+  File "read_data.py", line 21, in <module>
+    print(f"Row {i}: " + " | ".join(vals))
+UnicodeEncodeError: 'gbk' codec can't encode character '\xb3' in position 202: illegal multibyte sequence

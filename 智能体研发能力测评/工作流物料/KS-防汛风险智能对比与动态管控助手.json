@@ -1,0 +1,5384 @@
+{
+ "id": "82460c3d-d1a4-4fbf-8bef-692c52c00079",
+ "name": "KS-防汛风险智能对比与动态管控助手",
+ "description": "",
+ "icon": null,
+ "icon_background": null,
+ "categories": [],
+ "apptype": "agent",
+ "tags": [],
+ "clusters": [],
+ "graph": {
+  "nodes": [
+   {
+    "id": "1900000000033",
+    "type": "custom",
+    "data": {
+     "type": "start",
+     "title": "开始",
+     "desc": "流程的起始节点",
+     "payload__kind": "__start__",
+     "variables": [],
+     "config__input_ports": [],
+     "config__output_shape": [
+      {
+       "variable": "user_id",
+       "type": "string",
+       "variable_category": "sys",
+       "id": "79fde49f-7428-4713-b334-79f65389c624"
+      },
+      {
+       "variable": "app_id",
+       "type": "string",
+       "variable_category": "sys",
+       "id": "d200ace2-2a7e-4b86-aacb-cbaae64cd73f"
+      },
+      {
+       "variable": "conversation_id",
+       "type": "string",
+       "variable_category": "sys",
+       "id": "49ca7b78-f6fd-473e-9b23-225974a9436c"
+      },
+      {
+       "variable": "query",
+       "type": "string",
+       "variable_category": "sys",
+       "id": "0faf9b93-e784-4705-a810-24257db0c76f"
+      },
+      {
+       "variable": "files",
+       "enable": false,
+       "type": "array[file]",
+       "variable_category": "sys",
+       "id": "f535c8ed-83d7-4512-baee-cb64e3f90771",
+       "allowed_file_upload_methods": [
+        "local_file",
+        "remote_url"
+       ],
+       "allowed_file_types": [
+        "document"
+       ]
+      },
+      {
+       "variable": "image_files",
+       "enable": false,
+       "type": "array[file]",
+       "variable_category": "sys",
+       "id": "d817eca1-80b3-4a83-80d8-a025d6bd722b",
+       "allowed_file_upload_methods": [
+        "local_file",
+        "remote_url"
+       ],
+       "allowed_file_types": [
+        "image"
+       ]
+      },
+      {
+       "variable": "speech",
+       "enable": false,
+       "type": "file",
+       "variable_category": "sys",
+       "id": "20cdabed-c399-43bd-b29e-7b342edce979",
+       "allowed_file_upload_methods": [
+        "local_file",
+        "remote_url"
+       ],
+       "allowed_file_types": [
+        "audio"
+       ]
+      },
+      {
+       "variable": "query",
+       "label": "query",
+       "type": "string",
+       "max_length": 2000,
+       "required": true,
+       "options": [],
+       "id": "3e67e7de-44c2-4227-8660-8c9359637142"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "参数",
+       "tooltip": "定义工作流需要的输入参数，可以选择多种格式"
+      }
+     ],
+     "name": "start",
+     "selected": false,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "label": "query",
+       "type": "string",
+       "max_length": 2000,
+       "required": true,
+       "options": [],
+       "id": "3e67e7de-44c2-4227-8660-8c9359637142"
+      }
+     ],
+     "errorMessage": []
+    },
+    "position": {
+     "x": 80,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 80,
+     "y": 300
+    },
+    "width": 195,
+    "height": 164,
+    "selected": false
+   },
+   {
+    "id": "1900000000034",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "意图识别-1",
+     "desc": "判断用户输入的意图识别，将其与预设意图选项进行匹配。",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "true",
+       "cond": "单年度统计",
+       "label": "意图 1"
+      },
+      {
+       "id": "84ab14f9-452d-409a-953e-97458daf95b0",
+       "cond": "跨年度对比与追踪",
+       "label": "意图 2"
+      },
+      {
+       "id": "59f9fe9f-c040-4730-ba27-cd15d31e3c2a",
+       "cond": "新增线路评估",
+       "label": "意图 3"
+      },
+      {
+       "id": "8b30af1b-d3e0-4feb-b972-e035f09cf37c",
+       "cond": "责任人变更",
+       "label": "意图 4"
+      },
+      {
+       "id": "false",
+       "cond": "",
+       "label": "默认"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "tooltip": "需要进行意图识别的参数",
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "tooltip": "意图识别后输出的参数",
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "tooltip": "输入参数的数量，需保证与输入参数数量保持一致",
+       "hide": true
+      },
+      {
+       "name": "model_resource",
+       "label": "大模型",
+       "type": "cascader",
+       "required": true,
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "intention-model_resource-response",
+       "onChangeCallbackKey": "intention-model_resource-onChange",
+       "additionalComponentConfig": {
+        "type": "button_trigger_parameters_config",
+        "labelCol": 20,
+        "wrapperCol": 4,
+        "name": "payload__model_conf"
+       }
+      },
+      {
+       "name": "payload__prompt",
+       "label": "提示词",
+       "type": "single_prompt",
+       "defaultValue": "",
+       "tooltip": "为意图识别提供指导，辅助模型判断需求",
+       "required": false,
+       "fieldExtraComponentConfig": {
+        "type": "button_trigger_prompt_template",
+        "onChangeCallbackKey": "intention-model_payload-prompt-onChange"
+       }
+      },
+      {
+       "label": "用户限制",
+       "name": "payload__constrain",
+       "type": "single_prompt",
+       "placeholder": "请输入用户限制",
+       "defaultValue": "",
+       "tooltip": "添加人为限制条件，拒绝无关意图",
+       "required": false
+      },
+      {
+       "label": "注意事项",
+       "name": "payload__attention",
+       "type": "text",
+       "placeholder": "请输入注意事项",
+       "defaultValue": "",
+       "tooltip": "为意图识别添加特殊情况事项",
+       "required": false
+      },
+      {
+       "type": "intention",
+       "label": "意图识别",
+       "name": "payload__intention",
+       "tooltip": "添加想要识别的意图，每个意图最好简洁清晰，意图之间没有交叉"
+      },
+      {
+       "label": "支持上下文对话",
+       "name": "payload__use_history",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": true,
+       "tooltip": "模型能够收到前轮对话内容以丰富背景信息输入",
+       "isChatModeRemain": true,
+       "onChangeCallbackKey": "online-llm-payload__use_history-onChange"
+      },
+      {
+       "label": "上下文窗口大小",
+       "name": "payload__context_window_size",
+       "type": "slider",
+       "defaultValue": 50,
+       "required": false,
+       "hide": true,
+       "itemProps": {
+        "min": 1,
+        "max": 100
+       }
+      }
+     ],
+     "name": "intention",
+     "payload__kind": "Intention",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "input",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "36095bb1-0233-403e-83d9-a1ab71e26fa0",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "input",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "8aec3166-b04a-4e47-a774-b3492afdfc79",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "class_name",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "04b792fa-eca6-4dab-94aa-0e2e014e47d5"
+      }
+     ],
+     "payload__outputs": {
+      "class_name": {
+       "type": "string"
+      }
+     },
+     "payload__model_type": "online",
+     "code_language": "python3",
+     "title_en": "Intention",
+     "about": "内置大模型用于判断意图，用户需要配置使用的大模型。意图识别每个意图都有一个输出的点，但每个点只能连一条边。意图识别的所有Action最后会汇集到一个聚合器上",
+     "classification": "function-module",
+     "payload__prompt": "你是防汛风险管控系统的意图识别器，根据用户输入匹配意图：\n- 单年度统计：统计某一年度的风险点数量与等级分布，如“2024年1号线有多少风险点”。\n- 跨年度对比与追踪：比较2023和2024年风险点的新增/消失/等级变化，如“王家港站两年对比”“哪些风险点等级降低了”。\n- 新增线路评估：询问2024年新增了哪些线路的风险点及影响，如“2024年新增了哪些线路”。\n- 责任人变更：询问管控责任人年度变化，如“王家港站的责任人有没有变化”。",
+     "payload__constrain": "",
+     "payload__attention": "与防汛风险无关的问题走默认。",
+     "payload__use_history": false,
+     "payload__context_window_size": 50,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "129",
+      "149"
+     ],
+     "payload__online_model_brand": "129",
+     "payload__online_model_id": "149",
+     "payload__model_conf": {}
+    },
+    "position": {
+     "x": 380,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 380,
+     "y": 300
+    },
+    "width": 195,
+    "height": 205,
+    "selected": false
+   },
+   {
+    "id": "1900000000035",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "清单检索-统计",
+     "desc": "从文本类知识库中筛选出和用户查询相关的文档",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "label": "选择知识库",
+       "name": "payload__knowledgebase",
+       "type": "cascader",
+       "options_fetch_api": "/kb/catalogue/graph_tree?qtype=already",
+       "options_fetch_param_config": [
+        {
+         "valueSource": "nodeData",
+         "key": "check_ids",
+         "nodeKey": "payload__knowledge_ids"
+        }
+       ],
+       "placeholder": "请选择知识库",
+       "required": true,
+       "responseCallbackKey": "retrieverv2-payload__payload__knowledgebase-response",
+       "afterResponseChangeCallbackKey": "retrieverv2-payload__knowledgebase-after-response",
+       "onChangeCallbackKey": "retrieverv2-payload__knowledgebase-onChange",
+       "itemProps": {
+        "showCheckedStrategy": "SHOW_CHILD",
+        "multiple": true,
+        "maxTagCount": 70,
+        "optionRenderCallbackKey": "retrieverv2-payload__knowledgebase-option-render"
+       }
+      },
+      {
+       "label": "搜索策略",
+       "name": "payload__search_strategy",
+       "type": "select",
+       "tooltip": "混合搜索：融合“语义”+“关键字”相关性排序；<br/>关键字全文检索：按照关键字相关性排序；<br/>语义搜索：按照语义相关性排序",
+       "itemProps": {
+        "allowClear": false
+       },
+       "required": true,
+       "onChangeCallbackKey": "retrieverv2-payload__search-strategy-onChange",
+       "options": [
+        {
+         "label": "混合",
+         "value": "mixture"
+        },
+        {
+         "label": "关键字全文检索",
+         "value": "full_text"
+        },
+        {
+         "label": "语义搜索",
+         "value": "semantics"
+        }
+       ]
+      },
+      {
+       "label": "关键词权重",
+       "name": "payload__keyword_weight",
+       "type": "slider",
+       "itemProps": {
+        "step": 0.01,
+        "min": 0,
+        "max": 1
+       },
+       "defaultValue": 0.5,
+       "readonly": false,
+       "tooltip": "混合搜索模式下关键词匹配的权重。值越大越倾向精确匹配，值越小越倾向语义相似"
+      },
+      {
+       "name": "payload__metadata",
+       "type": "metadata"
+      },
+      {
+       "label": "最大召回数量",
+       "name": "payload__top_k",
+       "type": "number",
+       "required": true,
+       "tooltip": "从知识库中找出与用户查询最相关的前K个文档片段，作为上下文用于生成答案",
+       "defaultValue": 1,
+       "precision": 0,
+       "min": 1
+      },
+      {
+       "label": "最小匹配度",
+       "name": "payload__score_threshold",
+       "type": "number",
+       "required": true,
+       "tooltip": "召回相似度超过该数值的文本块",
+       "defaultValue": 0.1,
+       "precision": 1,
+       "min": 0.1,
+       "max": 1,
+       "itemProps": {
+        "stringMode": true,
+        "step": 0.1
+       }
+      },
+      {
+       "label": "输出格式",
+       "name": "payload__output_format",
+       "type": "select",
+       "required": false,
+       "tooltip": "节点：object类型，包含知识库相关内容及内容的坐标信息；<br/>内容：包含知识库相关内容；<br/>字典：dict类型，包含知识库相关内容及内容的坐标信息",
+       "itemProps": {
+        "allowClear": false,
+        "defaultValue": null
+       },
+       "options": [
+        {
+         "label": "节点",
+         "value": null
+        },
+        {
+         "label": "内容",
+         "value": "content"
+        },
+        {
+         "label": "字典",
+         "value": "dict"
+        }
+       ],
+       "onChangeCallbackKey": "retrieverv2-payload__output_format-onChange"
+      },
+      {
+       "label": "join",
+       "name": "payload__join",
+       "type": "select",
+       "required": false,
+       "readonly": true,
+       "options": [
+        {
+         "label": "False",
+         "value": false
+        },
+        {
+         "label": "True",
+         "value": true
+        }
+       ],
+       "itemProps": {
+        "defaultValue": false
+       },
+       "onChangeCallbackKey": "retrieverv2-payload__join-onChange"
+      },
+      {
+       "label": "开启溯源",
+       "name": "payload__return_source",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "开启后支持文本知识库溯源"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "02824fa6-6290-4a88-bd32-8260d04c2b2d",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "result",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "id": "eea70df2-427a-4e61-a22f-a547f0dec289"
+      }
+     ],
+     "name": "retriever_v2",
+     "classification": "function-module",
+     "payload__kind": "RetrieverV2",
+     "title_en": "RetrieverV2",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "abdc38c6-ad5e-4e1c-b619-d24ec22a37c9",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "payload__output_format": null,
+     "payload__outputs": {
+      "result": {
+       "type": "array[object]"
+      }
+     },
+     "payload__metadata": {
+      "metadata_filtering_mode": "disabled",
+      "metadata_definition": []
+     },
+     "about": "知识库检索",
+     "payload__keyword_weight": 0.7,
+     "payload__top_k": 8,
+     "payload__score_threshold": 0.3,
+     "payload__return_source": true,
+     "errorMessage": [],
+     "selected": false,
+     "payload__knowledgebase": [
+      [
+       "00000000-0000-0000-0000-000000000000",
+       "0c65c3b8-e4e7-4b20-af23-537ea9f7da5c",
+       "ad352453-353c-4e1a-9d24-6235edcd7223"
+      ]
+     ],
+     "payload__knowledge_ids": [
+      "ad352453-353c-4e1a-9d24-6235edcd7223"
+     ],
+     "payload__search_strategy": "mixture"
+    },
+    "position": {
+     "x": 680,
+     "y": 40
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 680,
+     "y": 40
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000036",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "重排-统计",
+     "desc": "对查询文段进行进一步排序，选出更贴合用户查询的内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "tooltip": "查询到的文段内容以及用户的查询query输入",
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "model_resource",
+       "label": "重排模型",
+       "type": "cascader",
+       "required": true,
+       "tooltip": "基于所有检索结果，生成一个“最相关信息”的融合表示",
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "reranker-model_resource-response",
+       "onChangeCallbackKey": "reranker-model_resource-onChange"
+      },
+      {
+       "label": "排序保留多少个最相关的文档",
+       "name": "payload__top_k",
+       "type": "number",
+       "required": true,
+       "defaultValue": 1,
+       "precision": 0,
+       "min": 1
+      },
+      {
+       "label": "最小匹配度",
+       "name": "payload__score_threshold",
+       "type": "number",
+       "required": true,
+       "tooltip": "召回相似度超过该数值的文本块",
+       "defaultValue": 0.1,
+       "precision": 2,
+       "min": -10,
+       "max": 10,
+       "itemProps": {
+        "stringMode": true,
+        "step": 0.01
+       }
+      },
+      {
+       "label": "输出格式",
+       "name": "payload__output_format",
+       "type": "select",
+       "tooltip": "内容：包含知识库相关内容；<br/>字典：dict类型，包含知识库相关内容及内容的坐标信息",
+       "allowClear": false,
+       "options": [
+        {
+         "label": "内容",
+         "value": "content"
+        },
+        {
+         "label": "字典",
+         "value": "dict"
+        }
+       ],
+       "defaultValue": "content",
+       "onChangeCallbackKey": "reranker-payload__output_format-onChange"
+      },
+      {
+       "label": "是否将输出合并为一个字符串",
+       "name": "payload__join",
+       "type": "select",
+       "required": true,
+       "options": [
+        {
+         "label": "否",
+         "value": false
+        },
+        {
+         "label": "是",
+         "value": true
+        }
+       ],
+       "defaultValue": true,
+       "onChangeCallbackKey": "retrieverv2-payload__join-onChange"
+      },
+      {
+       "label": "开启溯源",
+       "name": "payload__return_source",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "开启后支持文本知识库溯源"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "f917afd8-3bd5-4519-9cc3-1cc05fae4948",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      },
+      {
+       "variable": "nodes",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "be78d017-5460-402a-b07e-491b0aea9ad1",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000035",
+        "result",
+        "_ideea70df2-427a-4e61-a22f-a547f0dec289"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "result",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "id": "6cd46aec-9cb8-4fde-af21-a6becc6f44ad"
+      }
+     ],
+     "name": "reranker",
+     "classification": "function-module",
+     "payload__kind": "Reranker",
+     "title_en": "Reranker",
+     "payload__type": "ModuleReranker",
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "95dc847b-ab78-4bfc-a4b2-0b95fe146d3d",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      },
+      {
+       "variable": "nodes",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "f3e4faa8-e9e5-4bf3-af33-4c280398b9ce",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000035",
+        "result",
+        "_ideea70df2-427a-4e61-a22f-a547f0dec289"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000035",
+        "result"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "result": {
+       "type": "string"
+      }
+     },
+     "about": "RAG模块的重排器",
+     "payload__top_k": 8,
+     "payload__score_threshold": 0.3,
+     "payload__output_format": "content",
+     "payload__join": true,
+     "payload__return_source": true,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "104",
+      "110"
+     ],
+     "payload__model_type": "online",
+     "payload__online_model_brand": "104",
+     "payload__online_model_id": "110"
+    },
+    "position": {
+     "x": 940,
+     "y": 40
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 940,
+     "y": 40
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000037",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "大模型-统计回答",
+     "desc": "调用大语言模型，使用变量和提示词生成内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "type": "config__input_shape",
+       "name": "config__input_shape",
+       "label": "输入参数",
+       "tooltip": "输入需要添加到提示词的信息，这些信息可以被下方的提示词引用",
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "tooltip": "大模型生成的输出内容",
+       "type": "config__output_shape",
+       "name": "config__output_shape",
+       "label": "输出参数",
+       "notAllowedAddAndRemove": true,
+       "onChangeCallbackKey": "error_handle_shape_sync_onChange"
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "label": "支持结构化输出",
+       "name": "payload__response_format",
+       "type": "select",
+       "defaultValue": "text",
+       "required": false,
+       "tooltip": "<div>文本：使用普通文本格式回复<br/>JSON：将引导模型使用JSON格式输出</div>",
+       "options": [
+        {
+         "label": "文本",
+         "value": "text"
+        },
+        {
+         "label": "JSON",
+         "value": "json"
+        }
+       ],
+       "onChangeCallbackKey": "online-llm-payload__response_format-onChange"
+      },
+      {
+       "name": "model_resource",
+       "label": "大模型",
+       "type": "cascader",
+       "required": true,
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "online-llm-model_resource-response",
+       "onChangeCallbackKey": "online-llm-model_resource-onChange",
+       "additionalComponentConfig": {
+        "type": "button_trigger_parameters_config",
+        "labelCol": 20,
+        "wrapperCol": 4,
+        "name": "payload__model_conf"
+       }
+      },
+      {
+       "label": "音频输出",
+       "name": "payload__audio_output_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-output-enable-onChange"
+      },
+      {
+       "label": "思考模式",
+       "name": "payload__enable_thinking",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!mb-0",
+       "required": false,
+       "tooltip": "开启后，模型会先进行推理思考，再生成最终回答。选择支持 #深度思考 功能的模型即可开启",
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__enable_thinking-onChange"
+      },
+      {
+       "name": "payload__reasoning_split",
+       "type": "boolean",
+       "fieldProps": {
+        "label": "推理标签分离",
+        "layout": "horizontal",
+        "colon": false,
+        "labelAlign": "right"
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!pl-7",
+       "required": false,
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__reasoning_split-onChange"
+      },
+      {
+       "label": "提示词",
+       "name": "payload__prompt.system",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "SYSTEM",
+        "titleTooltip": "设定模型的角色和行为模式，决定对话的整体基调和方向"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange",
+       "fieldExtraComponentConfig": {
+        "name": "payload__prompt.system",
+        "type": "button_trigger_prompt_template",
+        "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+       }
+      },
+      {
+       "name": "payload__prompt.user",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "USER",
+        "titleTooltip": "用户输入的具体问题或请求，决定模型在当前对话中的具体回答内容",
+        "placeholder": "在这里编写提示词，输入“{”插入变量、输入“/”插入提示内容块；\n当提示词为空时，将自动使用当前节点配置的输入参数作为提示词，填写后则以当前内容为准",
+        "placeholderClassName": "whitespace-pre-wrap"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+      },
+      {
+       "type": "vision_param",
+       "name": "vision_param",
+       "label": "视觉理解",
+       "tooltip": "开启视觉理解功能将允许模型输入图片，并根据图像内容的理解回答用户问题，选择支持 #视觉、#全模态 功能的模型即可开启"
+      },
+      {
+       "label": "语音理解",
+       "name": "payload__audio_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启语音理解功能将允许模型输入语音文件，并根据语音内容的理解回答用户问题。选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "audio_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__audio-variable-filterVar"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__audio-variable-onChange"
+      },
+      {
+       "label": "视频理解",
+       "name": "payload__video_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启视频理解功能将允许模型输入视频，并根据视频内容的理解回答用户问题，选择支持 #视频、#全模态 功能的模型即可开启 ",
+       "onChangeCallbackKey": "online-llm-payload__video-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "video_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__video-variable-onChange"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__video-variable-filterVar"
+      },
+      {
+       "label": "支持上下文对话",
+       "name": "payload__use_history",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "模型能够收到前轮对话内容以丰富背景信息输入",
+       "isChatModeRemain": true,
+       "onChangeCallbackKey": "online-llm-payload__use_history-onChange"
+      },
+      {
+       "label": "上下文窗口大小",
+       "name": "payload__context_window_size",
+       "type": "slider",
+       "defaultValue": 50,
+       "required": false,
+       "hide": true,
+       "itemProps": {
+        "min": 1,
+        "max": 100
+       }
+      },
+      {
+       "label": "异常处理",
+       "name": "error_strategy",
+       "type": "error_handle",
+       "tooltip": "配置异常处理策略，当节点发生异常时触发"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "e1bf8556-b5d1-456c-a9dc-95a2cbc5660a",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "text",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "47650708-33cb-4988-b01c-d69d4b1d4fe0"
+      }
+     ],
+     "name": "online-llm",
+     "classification": "basic-model",
+     "payload__kind": "OnlineLLM",
+     "payload__stream": true,
+     "title_en": "OnlineLLM",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "fd2403e9-92fb-40b5-bf5d-64a3f9dd0898",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "payload__version": 2,
+     "payload__vision_enable": false,
+     "vision_param": {
+      "payload__vision_variable": {}
+     },
+     "payload__outputs": {
+      "text": {
+       "type": "string"
+      }
+     },
+     "payload__prompt": {
+      "system": "# 角色\n你是防汛风险智能对比与动态管控助手，面向防汛管理人员输出清晰的对比分析。\n# 约束\n- 只使用检索内容与代码计算结果，禁止编造风险点、等级、人数；\n- 等级表述统一为：重大/较大/一般/较小；\n- 给出变化原因分析时必须基于检索到的风险描述与管控措施变化；\n- 输出含数据来源说明；对比结果用列表或表格呈现。- 统计数字以知识库中的统计摘要文档为准，逐项列出数量与占比（占比保留1位小数）。",
+      "user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}\n\n知识库检索内容：\n{{#1900000000036.result._id6cd46aec-9cb8-4fde-af21-a6becc6f44ad#}}\n\n请根据以上内容回答。"
+     },
+     "payload__model_type": "online",
+     "about": "",
+     "payload__response_format": "text",
+     "payload__use_history": false,
+     "payload__context_window_size": 50,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "125",
+      "142"
+     ],
+     "payload__online_model_brand": "125",
+     "payload__online_model_id": "142",
+     "payload__model_conf": {},
+     "payload__enable_thinking": false,
+     "payload__audio_variable": {},
+     "payload__video_variable": {},
+     "isVisionSwitchCanUse": true,
+     "payload__vision_variable": {},
+     "payload__prompt.system": "# 角色\n你是防汛风险智能对比与动态管控助手，面向防汛管理人员输出清晰的对比分析。\n# 约束\n- 只使用检索内容与代码计算结果，禁止编造风险点、等级、人数；\n- 等级表述统一为：重大/较大/一般/较小；\n- 给出变化原因分析时必须基于检索到的风险描述与管控措施变化；\n- 输出含数据来源说明；对比结果用列表或表格呈现。- 统计数字以知识库中的统计摘要文档为准，逐项列出数量与占比（占比保留1位小数）。",
+     "payload__prompt.user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}\n\n知识库检索内容：\n{{#1900000000036.result._id6cd46aec-9cb8-4fde-af21-a6becc6f44ad#}}\n\n请根据以上内容回答。"
+    },
+    "position": {
+     "x": 1220,
+     "y": 40
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 1220,
+     "y": 40
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000038",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "清单检索-对比",
+     "desc": "从文本类知识库中筛选出和用户查询相关的文档",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "label": "选择知识库",
+       "name": "payload__knowledgebase",
+       "type": "cascader",
+       "options_fetch_api": "/kb/catalogue/graph_tree?qtype=already",
+       "options_fetch_param_config": [
+        {
+         "valueSource": "nodeData",
+         "key": "check_ids",
+         "nodeKey": "payload__knowledge_ids"
+        }
+       ],
+       "placeholder": "请选择知识库",
+       "required": true,
+       "responseCallbackKey": "retrieverv2-payload__payload__knowledgebase-response",
+       "afterResponseChangeCallbackKey": "retrieverv2-payload__knowledgebase-after-response",
+       "onChangeCallbackKey": "retrieverv2-payload__knowledgebase-onChange",
+       "itemProps": {
+        "showCheckedStrategy": "SHOW_CHILD",
+        "multiple": true,
+        "maxTagCount": 70,
+        "optionRenderCallbackKey": "retrieverv2-payload__knowledgebase-option-render"
+       }
+      },
+      {
+       "label": "搜索策略",
+       "name": "payload__search_strategy",
+       "type": "select",
+       "tooltip": "混合搜索：融合“语义”+“关键字”相关性排序；<br/>关键字全文检索：按照关键字相关性排序；<br/>语义搜索：按照语义相关性排序",
+       "itemProps": {
+        "allowClear": false
+       },
+       "required": true,
+       "onChangeCallbackKey": "retrieverv2-payload__search-strategy-onChange",
+       "options": [
+        {
+         "label": "混合",
+         "value": "mixture"
+        },
+        {
+         "label": "关键字全文检索",
+         "value": "full_text"
+        },
+        {
+         "label": "语义搜索",
+         "value": "semantics"
+        }
+       ]
+      },
+      {
+       "label": "关键词权重",
+       "name": "payload__keyword_weight",
+       "type": "slider",
+       "itemProps": {
+        "step": 0.01,
+        "min": 0,
+        "max": 1
+       },
+       "defaultValue": 0.5,
+       "readonly": false,
+       "tooltip": "混合搜索模式下关键词匹配的权重。值越大越倾向精确匹配，值越小越倾向语义相似"
+      },
+      {
+       "name": "payload__metadata",
+       "type": "metadata"
+      },
+      {
+       "label": "最大召回数量",
+       "name": "payload__top_k",
+       "type": "number",
+       "required": true,
+       "tooltip": "从知识库中找出与用户查询最相关的前K个文档片段，作为上下文用于生成答案",
+       "defaultValue": 1,
+       "precision": 0,
+       "min": 1
+      },
+      {
+       "label": "最小匹配度",
+       "name": "payload__score_threshold",
+       "type": "number",
+       "required": true,
+       "tooltip": "召回相似度超过该数值的文本块",
+       "defaultValue": 0.1,
+       "precision": 1,
+       "min": 0.1,
+       "max": 1,
+       "itemProps": {
+        "stringMode": true,
+        "step": 0.1
+       }
+      },
+      {
+       "label": "输出格式",
+       "name": "payload__output_format",
+       "type": "select",
+       "required": false,
+       "tooltip": "节点：object类型，包含知识库相关内容及内容的坐标信息；<br/>内容：包含知识库相关内容；<br/>字典：dict类型，包含知识库相关内容及内容的坐标信息",
+       "itemProps": {
+        "allowClear": false,
+        "defaultValue": null
+       },
+       "options": [
+        {
+         "label": "节点",
+         "value": null
+        },
+        {
+         "label": "内容",
+         "value": "content"
+        },
+        {
+         "label": "字典",
+         "value": "dict"
+        }
+       ],
+       "onChangeCallbackKey": "retrieverv2-payload__output_format-onChange"
+      },
+      {
+       "label": "join",
+       "name": "payload__join",
+       "type": "select",
+       "required": false,
+       "readonly": true,
+       "options": [
+        {
+         "label": "False",
+         "value": false
+        },
+        {
+         "label": "True",
+         "value": true
+        }
+       ],
+       "itemProps": {
+        "defaultValue": false
+       },
+       "onChangeCallbackKey": "retrieverv2-payload__join-onChange"
+      },
+      {
+       "label": "开启溯源",
+       "name": "payload__return_source",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "开启后支持文本知识库溯源"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "7e202d33-ca94-43d9-86fb-d14dba54739e",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "result",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "id": "82730f28-2c4b-4d94-a693-76d7699fdb5b"
+      }
+     ],
+     "name": "retriever_v2",
+     "classification": "function-module",
+     "payload__kind": "RetrieverV2",
+     "title_en": "RetrieverV2",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "3dd695bc-6063-4394-8ebf-838734d2def6",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "payload__output_format": null,
+     "payload__outputs": {
+      "result": {
+       "type": "array[object]"
+      }
+     },
+     "payload__metadata": {
+      "metadata_filtering_mode": "disabled",
+      "metadata_definition": []
+     },
+     "about": "知识库检索",
+     "payload__keyword_weight": 0.7,
+     "payload__top_k": 10,
+     "payload__score_threshold": 0.3,
+     "payload__return_source": true,
+     "errorMessage": [],
+     "selected": false,
+     "payload__knowledgebase": [
+      [
+       "00000000-0000-0000-0000-000000000000",
+       "0c65c3b8-e4e7-4b20-af23-537ea9f7da5c",
+       "ad352453-353c-4e1a-9d24-6235edcd7223"
+      ]
+     ],
+     "payload__knowledge_ids": [
+      "ad352453-353c-4e1a-9d24-6235edcd7223"
+     ],
+     "payload__search_strategy": "mixture"
+    },
+    "position": {
+     "x": 680,
+     "y": 240
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 680,
+     "y": 240
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000039",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "重排-对比",
+     "desc": "对查询文段进行进一步排序，选出更贴合用户查询的内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "tooltip": "查询到的文段内容以及用户的查询query输入",
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "model_resource",
+       "label": "重排模型",
+       "type": "cascader",
+       "required": true,
+       "tooltip": "基于所有检索结果，生成一个“最相关信息”的融合表示",
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "reranker-model_resource-response",
+       "onChangeCallbackKey": "reranker-model_resource-onChange"
+      },
+      {
+       "label": "排序保留多少个最相关的文档",
+       "name": "payload__top_k",
+       "type": "number",
+       "required": true,
+       "defaultValue": 1,
+       "precision": 0,
+       "min": 1
+      },
+      {
+       "label": "最小匹配度",
+       "name": "payload__score_threshold",
+       "type": "number",
+       "required": true,
+       "tooltip": "召回相似度超过该数值的文本块",
+       "defaultValue": 0.1,
+       "precision": 2,
+       "min": -10,
+       "max": 10,
+       "itemProps": {
+        "stringMode": true,
+        "step": 0.01
+       }
+      },
+      {
+       "label": "输出格式",
+       "name": "payload__output_format",
+       "type": "select",
+       "tooltip": "内容：包含知识库相关内容；<br/>字典：dict类型，包含知识库相关内容及内容的坐标信息",
+       "allowClear": false,
+       "options": [
+        {
+         "label": "内容",
+         "value": "content"
+        },
+        {
+         "label": "字典",
+         "value": "dict"
+        }
+       ],
+       "defaultValue": "content",
+       "onChangeCallbackKey": "reranker-payload__output_format-onChange"
+      },
+      {
+       "label": "是否将输出合并为一个字符串",
+       "name": "payload__join",
+       "type": "select",
+       "required": true,
+       "options": [
+        {
+         "label": "否",
+         "value": false
+        },
+        {
+         "label": "是",
+         "value": true
+        }
+       ],
+       "defaultValue": true,
+       "onChangeCallbackKey": "retrieverv2-payload__join-onChange"
+      },
+      {
+       "label": "开启溯源",
+       "name": "payload__return_source",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "开启后支持文本知识库溯源"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "9fcb646f-d397-4cb7-b979-9f06c97494d8",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      },
+      {
+       "variable": "nodes",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "8bba0935-b029-4873-b617-747065e07e46",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000038",
+        "result",
+        "_id82730f28-2c4b-4d94-a693-76d7699fdb5b"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "result",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "id": "c7e9b277-dfc4-48ba-86cf-30b0a5556a8a"
+      }
+     ],
+     "name": "reranker",
+     "classification": "function-module",
+     "payload__kind": "Reranker",
+     "title_en": "Reranker",
+     "payload__type": "ModuleReranker",
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "0ad175fe-63fb-48d8-bed6-759afa144ea7",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      },
+      {
+       "variable": "nodes",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "96d47c8e-9543-41f0-b6dc-1ea0443c2be2",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000038",
+        "result",
+        "_id82730f28-2c4b-4d94-a693-76d7699fdb5b"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000038",
+        "result"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "result": {
+       "type": "string"
+      }
+     },
+     "about": "RAG模块的重排器",
+     "payload__top_k": 10,
+     "payload__score_threshold": 0.3,
+     "payload__output_format": "content",
+     "payload__join": true,
+     "payload__return_source": true,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "104",
+      "110"
+     ],
+     "payload__model_type": "online",
+     "payload__online_model_brand": "104",
+     "payload__online_model_id": "110"
+    },
+    "position": {
+     "x": 940,
+     "y": 240
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 940,
+     "y": 240
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000040",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "跨年度对比计算",
+     "desc": "嵌入自定义的 Python ，可作为自定义方法级组件扩展。",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "hide": false
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "payload__code",
+       "type": "code",
+       "label": "Code",
+       "required": true
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "c764c75d-1587-4d07-bcff-7d43a8d650f3",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      },
+      {
+       "variable": "docs",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "3312eefc-ea13-4165-94ce-807f2677895c",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000039",
+        "result",
+        "_idc7e9b277-dfc4-48ba-86cf-30b0a5556a8a"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "id": "28b2f37e-835f-42fc-8a64-12d38fead314",
+       "variable": "cmp",
+       "type": "string"
+      },
+      {
+       "id": "38090b01-597c-4d05-b20c-3156f304a7da",
+       "variable": "new_list",
+       "type": "array[dict]"
+      },
+      {
+       "id": "9f4b054a-f586-46e2-80c8-3996943e34fe",
+       "variable": "gone_list",
+       "type": "array[dict]"
+      },
+      {
+       "id": "21974ec5-23db-4661-9609-620280eea5a1",
+       "variable": "changed_list",
+       "type": "array[dict]"
+      },
+      {
+       "id": "bf06ce28-cced-45bc-8c08-0f2e5dc15999",
+       "variable": "summary",
+       "type": "string"
+      }
+     ],
+     "name": "code",
+     "classification": "fundamental-component",
+     "payload__kind": "Code",
+     "config__can_run_by_single": true,
+     "payload__code": "def main(query: str, docs: str) -> dict:\n    import re\n\n    lv_map = {\"较小风险\": 1, \"一般风险\": 2, \"较大风险\": 3, \"重大风险\": 4}\n\n    # ---------- 1. 解析带年份标签的记录行 ----------\n    # 期望格式：【2023】线路 | 车站 | 部位 | 详细位置 | 风险等级 | 风险描述：… | 管控措施：… | 责任人：姓名\n    recs = []\n    for raw in (docs or \"\").splitlines():\n        line = raw.strip()\n        m = re.match(r\"^【(20\\\\d{2})】(.+)$\", line)\n        if not m:\n            continue\n        year = m.group(1)\n        parts = [p.strip() for p in m.group(2).split(\"|\")]\n        if len(parts) < 3:\n            continue\n        lv = \"\"\n        for p in parts:\n            p2 = p.replace(\"（直判）\", \"\").strip()\n            if p2 in lv_map:\n                lv = p2\n                break\n        owner = \"\"\n        mo = re.search(r\"责任人[:：]\\\\s*([\\u4e00-\\u9fa5]{2,4})\", line)\n        if mo:\n            owner = mo.group(1)\n        desc = \"\"\n        mdesc = re.search(r\"风险描述[:：]\\\\s*(.+?)(?:\\\\||$)\", line)\n        if mdesc:\n            desc = mdesc.group(1).strip()\n        recs.append({\"year\": year, \"line\": parts[0], \"station\": parts[1],\n                     \"part\": parts[2], \"level\": lv, \"desc\": desc, \"owner\": owner})\n\n    # ---------- 2. 按查询中的车站过滤 ----------\n    ms = re.search(r\"([\\u4e00-\\u9fa5]{2,10}站)\", query or \"\")\n    station = ms.group(1) if ms else \"\"\n    if station:\n        recs = [r for r in recs if r[\"station\"] == station]\n\n    r23 = {r[\"part\"]: r for r in recs if r[\"year\"] == \"2023\"}\n    r24 = {r[\"part\"]: r for r in recs if r[\"year\"] == \"2024\"}\n\n    new_list = [r24[k] for k in r24 if k not in r23]\n    gone_list = [r23[k] for k in r23 if k not in r24]\n    changed = []\n    for k in r23.keys() & r24.keys():\n        a, b = r23[k], r24[k]\n        c = {\"部位\": k, \"变化\": []}\n        if a[\"level\"] and b[\"level\"] and lv_map.get(a[\"level\"], 0) != lv_map.get(b[\"level\"], 0):\n            diff = lv_map[b[\"level\"]] - lv_map[a[\"level\"]]\n            c[\"变化\"].append(\"等级\" + a[\"level\"] + \"→\" + b[\"level\"] + (\"（升\" if diff > 0 else \"（降\") + str(abs(diff)) + \"级）\")\n        if a[\"owner\"] and b[\"owner\"] and a[\"owner\"] != b[\"owner\"]:\n            c[\"变化\"].append(\"责任人\" + a[\"owner\"] + \"→\" + b[\"owner\"])\n        if a[\"desc\"] and b[\"desc\"] and a[\"desc\"] != b[\"desc\"]:\n            c[\"变化\"].append(\"风险描述有更新\")\n        if c[\"变化\"]:\n            c[\"2023\"] = {\"等级\": a[\"level\"], \"责任人\": a[\"owner\"], \"描述\": a[\"desc\"]}\n            c[\"2024\"] = {\"等级\": b[\"level\"], \"责任人\": b[\"owner\"], \"描述\": b[\"desc\"]}\n            changed.append(c)\n\n    title = \"【\" + (station or \"相关站点\") + \" 2023↔2024 跨年度对比】\"\n    lines = [title]\n    lines.append(\"2023年 \" + str(len(r23)) + \" 个风险点，2024年 \" + str(len(r24)) + \" 个风险点\")\n    lines.append(\"新增 \" + str(len(new_list)) + \" 个：\" + (\"、\".join(r[\"part\"] for r in new_list) if new_list else \"无\"))\n    lines.append(\"消失 \" + str(len(gone_list)) + \" 个：\" + (\"、\".join(r[\"part\"] for r in gone_list) if gone_list else \"无\"))\n    if changed:\n        lines.append(\"发生变化 \" + str(len(changed)) + \" 个：\")\n        for c in changed:\n            lines.append(\"- \" + c[\"部位\"] + \"：\" + \"；\".join(c[\"变化\"]))\n    own23 = sorted({r[\"owner\"] for r in r23.values() if r[\"owner\"]})\n    own24 = sorted({r[\"owner\"] for r in r24.values() if r[\"owner\"]})\n    lines.append(\"责任人：2023年 \" + (\"、\".join(own23) or \"未知\") + \" → 2024年 \" + (\"、\".join(own24) or \"未知\"))\n\n    return {\"cmp\": \"\\n\".join(lines), \"new_list\": new_list,\n            \"gone_list\": gone_list, \"changed_list\": changed,\n            \"summary\": \"新增\" + str(len(new_list)) + \"，消失\" + str(len(gone_list)) + \"，变化\" + str(len(changed))}\n",
+     "title_en": "Code",
+     "about": "自定义函数和测试输入，并在后台提供一个沙箱协助用户执行代码。沙箱中需要管控好用户的权限，拒绝用户做删除系统文件等危险操作。目前仅支持python。",
+     "errorMessage": [],
+     "selected": false,
+     "payload__code_language": "python3",
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "204f35f5-905a-40f7-936c-18939800d35c",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      },
+      {
+       "variable": "docs",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "1368123d-f7ff-4dd8-a8c8-7a38e7c5ea70",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000039",
+        "result",
+        "_idc7e9b277-dfc4-48ba-86cf-30b0a5556a8a"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000039",
+        "result"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "cmp": {
+       "type": "string"
+      },
+      "new_list": {
+       "type": "array[dict]"
+      },
+      "gone_list": {
+       "type": "array[dict]"
+      },
+      "changed_list": {
+       "type": "array[dict]"
+      },
+      "summary": {
+       "type": "string"
+      }
+     }
+    },
+    "position": {
+     "x": 1220,
+     "y": 240
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 1220,
+     "y": 240
+    },
+    "width": 194,
+    "height": 103,
+    "selected": false
+   },
+   {
+    "id": "1900000000041",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "大模型-对比报告",
+     "desc": "调用大语言模型，使用变量和提示词生成内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "type": "config__input_shape",
+       "name": "config__input_shape",
+       "label": "输入参数",
+       "tooltip": "输入需要添加到提示词的信息，这些信息可以被下方的提示词引用",
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "tooltip": "大模型生成的输出内容",
+       "type": "config__output_shape",
+       "name": "config__output_shape",
+       "label": "输出参数",
+       "notAllowedAddAndRemove": true,
+       "onChangeCallbackKey": "error_handle_shape_sync_onChange"
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "label": "支持结构化输出",
+       "name": "payload__response_format",
+       "type": "select",
+       "defaultValue": "text",
+       "required": false,
+       "tooltip": "<div>文本：使用普通文本格式回复<br/>JSON：将引导模型使用JSON格式输出</div>",
+       "options": [
+        {
+         "label": "文本",
+         "value": "text"
+        },
+        {
+         "label": "JSON",
+         "value": "json"
+        }
+       ],
+       "onChangeCallbackKey": "online-llm-payload__response_format-onChange"
+      },
+      {
+       "name": "model_resource",
+       "label": "大模型",
+       "type": "cascader",
+       "required": true,
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "online-llm-model_resource-response",
+       "onChangeCallbackKey": "online-llm-model_resource-onChange",
+       "additionalComponentConfig": {
+        "type": "button_trigger_parameters_config",
+        "labelCol": 20,
+        "wrapperCol": 4,
+        "name": "payload__model_conf"
+       }
+      },
+      {
+       "label": "音频输出",
+       "name": "payload__audio_output_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-output-enable-onChange"
+      },
+      {
+       "label": "思考模式",
+       "name": "payload__enable_thinking",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!mb-0",
+       "required": false,
+       "tooltip": "开启后，模型会先进行推理思考，再生成最终回答。选择支持 #深度思考 功能的模型即可开启",
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__enable_thinking-onChange"
+      },
+      {
+       "name": "payload__reasoning_split",
+       "type": "boolean",
+       "fieldProps": {
+        "label": "推理标签分离",
+        "layout": "horizontal",
+        "colon": false,
+        "labelAlign": "right"
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!pl-7",
+       "required": false,
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__reasoning_split-onChange"
+      },
+      {
+       "label": "提示词",
+       "name": "payload__prompt.system",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "SYSTEM",
+        "titleTooltip": "设定模型的角色和行为模式，决定对话的整体基调和方向"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange",
+       "fieldExtraComponentConfig": {
+        "name": "payload__prompt.system",
+        "type": "button_trigger_prompt_template",
+        "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+       }
+      },
+      {
+       "name": "payload__prompt.user",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "USER",
+        "titleTooltip": "用户输入的具体问题或请求，决定模型在当前对话中的具体回答内容",
+        "placeholder": "在这里编写提示词，输入“{”插入变量、输入“/”插入提示内容块；\n当提示词为空时，将自动使用当前节点配置的输入参数作为提示词，填写后则以当前内容为准",
+        "placeholderClassName": "whitespace-pre-wrap"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+      },
+      {
+       "type": "vision_param",
+       "name": "vision_param",
+       "label": "视觉理解",
+       "tooltip": "开启视觉理解功能将允许模型输入图片，并根据图像内容的理解回答用户问题，选择支持 #视觉、#全模态 功能的模型即可开启"
+      },
+      {
+       "label": "语音理解",
+       "name": "payload__audio_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启语音理解功能将允许模型输入语音文件，并根据语音内容的理解回答用户问题。选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "audio_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__audio-variable-filterVar"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__audio-variable-onChange"
+      },
+      {
+       "label": "视频理解",
+       "name": "payload__video_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启视频理解功能将允许模型输入视频，并根据视频内容的理解回答用户问题，选择支持 #视频、#全模态 功能的模型即可开启 ",
+       "onChangeCallbackKey": "online-llm-payload__video-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "video_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__video-variable-onChange"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__video-variable-filterVar"
+      },
+      {
+       "label": "支持上下文对话",
+       "name": "payload__use_history",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "模型能够收到前轮对话内容以丰富背景信息输入",
+       "isChatModeRemain": true,
+       "onChangeCallbackKey": "online-llm-payload__use_history-onChange"
+      },
+      {
+       "label": "上下文窗口大小",
+       "name": "payload__context_window_size",
+       "type": "slider",
+       "defaultValue": 50,
+       "required": false,
+       "hide": true,
+       "itemProps": {
+        "min": 1,
+        "max": 100
+       }
+      },
+      {
+       "label": "异常处理",
+       "name": "error_strategy",
+       "type": "error_handle",
+       "tooltip": "配置异常处理策略，当节点发生异常时触发"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "f193f92b-5738-4d0b-8f16-fe506e551550",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "text",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "abd7e7cd-bd02-4eb1-be40-51468d5dfc2d"
+      }
+     ],
+     "name": "online-llm",
+     "classification": "basic-model",
+     "payload__kind": "OnlineLLM",
+     "payload__stream": true,
+     "title_en": "OnlineLLM",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "b6364a10-35c1-4f61-80ee-68b5208a17e3",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "payload__version": 2,
+     "payload__vision_enable": false,
+     "vision_param": {
+      "payload__vision_variable": {}
+     },
+     "payload__outputs": {
+      "text": {
+       "type": "string"
+      }
+     },
+     "payload__prompt": {
+      "system": "# 角色\n你是防汛风险智能对比与动态管控助手，面向防汛管理人员输出清晰的对比分析。\n# 约束\n- 只使用检索内容与代码计算结果，禁止编造风险点、等级、人数；\n- 等级表述统一为：重大/较大/一般/较小；\n- 给出变化原因分析时必须基于检索到的风险描述与管控措施变化；\n- 输出含数据来源说明；对比结果用列表或表格呈现。- 新增/消失/等级变化清单以代码计算结果为准，不得增减；原因分析结合检索到的风险描述变化。",
+      "user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}\n\n代码对比结果：\n{{#1900000000040.cmp._id28b2f37e-835f-42fc-8a64-12d38fead314#}}\n\n检索原文：\n{{#1900000000039.result._idc7e9b277-dfc4-48ba-86cf-30b0a5556a8a#}}\n\n请生成对比分析报告。"
+     },
+     "payload__model_type": "online",
+     "about": "",
+     "payload__response_format": "text",
+     "payload__use_history": false,
+     "payload__context_window_size": 50,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "125",
+      "142"
+     ],
+     "payload__online_model_brand": "125",
+     "payload__online_model_id": "142",
+     "payload__model_conf": {},
+     "payload__enable_thinking": false,
+     "payload__audio_variable": {},
+     "payload__video_variable": {},
+     "isVisionSwitchCanUse": true,
+     "payload__vision_variable": {},
+     "payload__prompt.system": "# 角色\n你是防汛风险智能对比与动态管控助手，面向防汛管理人员输出清晰的对比分析。\n# 约束\n- 只使用检索内容与代码计算结果，禁止编造风险点、等级、人数；\n- 等级表述统一为：重大/较大/一般/较小；\n- 给出变化原因分析时必须基于检索到的风险描述与管控措施变化；\n- 输出含数据来源说明；对比结果用列表或表格呈现。- 新增/消失/等级变化清单以代码计算结果为准，不得增减；原因分析结合检索到的风险描述变化。",
+     "payload__prompt.user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}\n\n代码对比结果：\n{{#1900000000040.cmp._id28b2f37e-835f-42fc-8a64-12d38fead314#}}\n\n检索原文：\n{{#1900000000039.result._idc7e9b277-dfc4-48ba-86cf-30b0a5556a8a#}}\n\n请生成对比分析报告。"
+    },
+    "position": {
+     "x": 1500,
+     "y": 240
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 1500,
+     "y": 240
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000042",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "清单检索-新增",
+     "desc": "从文本类知识库中筛选出和用户查询相关的文档",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "label": "选择知识库",
+       "name": "payload__knowledgebase",
+       "type": "cascader",
+       "options_fetch_api": "/kb/catalogue/graph_tree?qtype=already",
+       "options_fetch_param_config": [
+        {
+         "valueSource": "nodeData",
+         "key": "check_ids",
+         "nodeKey": "payload__knowledge_ids"
+        }
+       ],
+       "placeholder": "请选择知识库",
+       "required": true,
+       "responseCallbackKey": "retrieverv2-payload__payload__knowledgebase-response",
+       "afterResponseChangeCallbackKey": "retrieverv2-payload__knowledgebase-after-response",
+       "onChangeCallbackKey": "retrieverv2-payload__knowledgebase-onChange",
+       "itemProps": {
+        "showCheckedStrategy": "SHOW_CHILD",
+        "multiple": true,
+        "maxTagCount": 70,
+        "optionRenderCallbackKey": "retrieverv2-payload__knowledgebase-option-render"
+       }
+      },
+      {
+       "label": "搜索策略",
+       "name": "payload__search_strategy",
+       "type": "select",
+       "tooltip": "混合搜索：融合“语义”+“关键字”相关性排序；<br/>关键字全文检索：按照关键字相关性排序；<br/>语义搜索：按照语义相关性排序",
+       "itemProps": {
+        "allowClear": false
+       },
+       "required": true,
+       "onChangeCallbackKey": "retrieverv2-payload__search-strategy-onChange",
+       "options": [
+        {
+         "label": "混合",
+         "value": "mixture"
+        },
+        {
+         "label": "关键字全文检索",
+         "value": "full_text"
+        },
+        {
+         "label": "语义搜索",
+         "value": "semantics"
+        }
+       ]
+      },
+      {
+       "label": "关键词权重",
+       "name": "payload__keyword_weight",
+       "type": "slider",
+       "itemProps": {
+        "step": 0.01,
+        "min": 0,
+        "max": 1
+       },
+       "defaultValue": 0.5,
+       "readonly": false,
+       "tooltip": "混合搜索模式下关键词匹配的权重。值越大越倾向精确匹配，值越小越倾向语义相似"
+      },
+      {
+       "name": "payload__metadata",
+       "type": "metadata"
+      },
+      {
+       "label": "最大召回数量",
+       "name": "payload__top_k",
+       "type": "number",
+       "required": true,
+       "tooltip": "从知识库中找出与用户查询最相关的前K个文档片段，作为上下文用于生成答案",
+       "defaultValue": 1,
+       "precision": 0,
+       "min": 1
+      },
+      {
+       "label": "最小匹配度",
+       "name": "payload__score_threshold",
+       "type": "number",
+       "required": true,
+       "tooltip": "召回相似度超过该数值的文本块",
+       "defaultValue": 0.1,
+       "precision": 1,
+       "min": 0.1,
+       "max": 1,
+       "itemProps": {
+        "stringMode": true,
+        "step": 0.1
+       }
+      },
+      {
+       "label": "输出格式",
+       "name": "payload__output_format",
+       "type": "select",
+       "required": false,
+       "tooltip": "节点：object类型，包含知识库相关内容及内容的坐标信息；<br/>内容：包含知识库相关内容；<br/>字典：dict类型，包含知识库相关内容及内容的坐标信息",
+       "itemProps": {
+        "allowClear": false,
+        "defaultValue": null
+       },
+       "options": [
+        {
+         "label": "节点",
+         "value": null
+        },
+        {
+         "label": "内容",
+         "value": "content"
+        },
+        {
+         "label": "字典",
+         "value": "dict"
+        }
+       ],
+       "onChangeCallbackKey": "retrieverv2-payload__output_format-onChange"
+      },
+      {
+       "label": "join",
+       "name": "payload__join",
+       "type": "select",
+       "required": false,
+       "readonly": true,
+       "options": [
+        {
+         "label": "False",
+         "value": false
+        },
+        {
+         "label": "True",
+         "value": true
+        }
+       ],
+       "itemProps": {
+        "defaultValue": false
+       },
+       "onChangeCallbackKey": "retrieverv2-payload__join-onChange"
+      },
+      {
+       "label": "开启溯源",
+       "name": "payload__return_source",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "开启后支持文本知识库溯源"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "1b0c8780-af58-44d9-aa87-706c1773cb95",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "result",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "id": "4fd73814-e22e-4051-b3d1-a0f76ee1fcdb"
+      }
+     ],
+     "name": "retriever_v2",
+     "classification": "function-module",
+     "payload__kind": "RetrieverV2",
+     "title_en": "RetrieverV2",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "f8a58dc8-54bf-42e0-beb5-86d907904863",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "payload__output_format": null,
+     "payload__outputs": {
+      "result": {
+       "type": "array[object]"
+      }
+     },
+     "payload__metadata": {
+      "metadata_filtering_mode": "disabled",
+      "metadata_definition": []
+     },
+     "about": "知识库检索",
+     "payload__keyword_weight": 0.7,
+     "payload__top_k": 8,
+     "payload__score_threshold": 0.3,
+     "payload__return_source": true,
+     "errorMessage": [],
+     "selected": false,
+     "payload__knowledgebase": [
+      [
+       "00000000-0000-0000-0000-000000000000",
+       "0c65c3b8-e4e7-4b20-af23-537ea9f7da5c",
+       "ad352453-353c-4e1a-9d24-6235edcd7223"
+      ]
+     ],
+     "payload__knowledge_ids": [
+      "ad352453-353c-4e1a-9d24-6235edcd7223"
+     ],
+     "payload__search_strategy": "mixture"
+    },
+    "position": {
+     "x": 680,
+     "y": 440
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 680,
+     "y": 440
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000043",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "重排-新增",
+     "desc": "对查询文段进行进一步排序，选出更贴合用户查询的内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "tooltip": "查询到的文段内容以及用户的查询query输入",
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "model_resource",
+       "label": "重排模型",
+       "type": "cascader",
+       "required": true,
+       "tooltip": "基于所有检索结果，生成一个“最相关信息”的融合表示",
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "reranker-model_resource-response",
+       "onChangeCallbackKey": "reranker-model_resource-onChange"
+      },
+      {
+       "label": "排序保留多少个最相关的文档",
+       "name": "payload__top_k",
+       "type": "number",
+       "required": true,
+       "defaultValue": 1,
+       "precision": 0,
+       "min": 1
+      },
+      {
+       "label": "最小匹配度",
+       "name": "payload__score_threshold",
+       "type": "number",
+       "required": true,
+       "tooltip": "召回相似度超过该数值的文本块",
+       "defaultValue": 0.1,
+       "precision": 2,
+       "min": -10,
+       "max": 10,
+       "itemProps": {
+        "stringMode": true,
+        "step": 0.01
+       }
+      },
+      {
+       "label": "输出格式",
+       "name": "payload__output_format",
+       "type": "select",
+       "tooltip": "内容：包含知识库相关内容；<br/>字典：dict类型，包含知识库相关内容及内容的坐标信息",
+       "allowClear": false,
+       "options": [
+        {
+         "label": "内容",
+         "value": "content"
+        },
+        {
+         "label": "字典",
+         "value": "dict"
+        }
+       ],
+       "defaultValue": "content",
+       "onChangeCallbackKey": "reranker-payload__output_format-onChange"
+      },
+      {
+       "label": "是否将输出合并为一个字符串",
+       "name": "payload__join",
+       "type": "select",
+       "required": true,
+       "options": [
+        {
+         "label": "否",
+         "value": false
+        },
+        {
+         "label": "是",
+         "value": true
+        }
+       ],
+       "defaultValue": true,
+       "onChangeCallbackKey": "retrieverv2-payload__join-onChange"
+      },
+      {
+       "label": "开启溯源",
+       "name": "payload__return_source",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "开启后支持文本知识库溯源"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "7a4b66f8-b987-490e-a096-d07f2022a55d",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      },
+      {
+       "variable": "nodes",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "69231b86-e6c6-4d5b-bf42-8fb7bd1fc3e7",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000042",
+        "result",
+        "_id4fd73814-e22e-4051-b3d1-a0f76ee1fcdb"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "result",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "id": "eed6296c-652a-412f-adc9-0825c10b402c"
+      }
+     ],
+     "name": "reranker",
+     "classification": "function-module",
+     "payload__kind": "Reranker",
+     "title_en": "Reranker",
+     "payload__type": "ModuleReranker",
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "2c40c9c2-1da3-432b-8f5d-4fdb64729bc4",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      },
+      {
+       "variable": "nodes",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "e9589d76-d9e3-4c5f-8bf5-34778e420024",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000042",
+        "result",
+        "_id4fd73814-e22e-4051-b3d1-a0f76ee1fcdb"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000042",
+        "result"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "result": {
+       "type": "string"
+      }
+     },
+     "about": "RAG模块的重排器",
+     "payload__top_k": 8,
+     "payload__score_threshold": 0.3,
+     "payload__output_format": "content",
+     "payload__join": true,
+     "payload__return_source": true,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "104",
+      "110"
+     ],
+     "payload__model_type": "online",
+     "payload__online_model_brand": "104",
+     "payload__online_model_id": "110"
+    },
+    "position": {
+     "x": 940,
+     "y": 440
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 940,
+     "y": 440
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000044",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "大模型-新增评估",
+     "desc": "调用大语言模型，使用变量和提示词生成内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "type": "config__input_shape",
+       "name": "config__input_shape",
+       "label": "输入参数",
+       "tooltip": "输入需要添加到提示词的信息，这些信息可以被下方的提示词引用",
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "tooltip": "大模型生成的输出内容",
+       "type": "config__output_shape",
+       "name": "config__output_shape",
+       "label": "输出参数",
+       "notAllowedAddAndRemove": true,
+       "onChangeCallbackKey": "error_handle_shape_sync_onChange"
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "label": "支持结构化输出",
+       "name": "payload__response_format",
+       "type": "select",
+       "defaultValue": "text",
+       "required": false,
+       "tooltip": "<div>文本：使用普通文本格式回复<br/>JSON：将引导模型使用JSON格式输出</div>",
+       "options": [
+        {
+         "label": "文本",
+         "value": "text"
+        },
+        {
+         "label": "JSON",
+         "value": "json"
+        }
+       ],
+       "onChangeCallbackKey": "online-llm-payload__response_format-onChange"
+      },
+      {
+       "name": "model_resource",
+       "label": "大模型",
+       "type": "cascader",
+       "required": true,
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "online-llm-model_resource-response",
+       "onChangeCallbackKey": "online-llm-model_resource-onChange",
+       "additionalComponentConfig": {
+        "type": "button_trigger_parameters_config",
+        "labelCol": 20,
+        "wrapperCol": 4,
+        "name": "payload__model_conf"
+       }
+      },
+      {
+       "label": "音频输出",
+       "name": "payload__audio_output_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-output-enable-onChange"
+      },
+      {
+       "label": "思考模式",
+       "name": "payload__enable_thinking",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!mb-0",
+       "required": false,
+       "tooltip": "开启后，模型会先进行推理思考，再生成最终回答。选择支持 #深度思考 功能的模型即可开启",
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__enable_thinking-onChange"
+      },
+      {
+       "name": "payload__reasoning_split",
+       "type": "boolean",
+       "fieldProps": {
+        "label": "推理标签分离",
+        "layout": "horizontal",
+        "colon": false,
+        "labelAlign": "right"
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!pl-7",
+       "required": false,
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__reasoning_split-onChange"
+      },
+      {
+       "label": "提示词",
+       "name": "payload__prompt.system",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "SYSTEM",
+        "titleTooltip": "设定模型的角色和行为模式，决定对话的整体基调和方向"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange",
+       "fieldExtraComponentConfig": {
+        "name": "payload__prompt.system",
+        "type": "button_trigger_prompt_template",
+        "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+       }
+      },
+      {
+       "name": "payload__prompt.user",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "USER",
+        "titleTooltip": "用户输入的具体问题或请求，决定模型在当前对话中的具体回答内容",
+        "placeholder": "在这里编写提示词，输入“{”插入变量、输入“/”插入提示内容块；\n当提示词为空时，将自动使用当前节点配置的输入参数作为提示词，填写后则以当前内容为准",
+        "placeholderClassName": "whitespace-pre-wrap"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+      },
+      {
+       "type": "vision_param",
+       "name": "vision_param",
+       "label": "视觉理解",
+       "tooltip": "开启视觉理解功能将允许模型输入图片，并根据图像内容的理解回答用户问题，选择支持 #视觉、#全模态 功能的模型即可开启"
+      },
+      {
+       "label": "语音理解",
+       "name": "payload__audio_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启语音理解功能将允许模型输入语音文件，并根据语音内容的理解回答用户问题。选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "audio_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__audio-variable-filterVar"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__audio-variable-onChange"
+      },
+      {
+       "label": "视频理解",
+       "name": "payload__video_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启视频理解功能将允许模型输入视频，并根据视频内容的理解回答用户问题，选择支持 #视频、#全模态 功能的模型即可开启 ",
+       "onChangeCallbackKey": "online-llm-payload__video-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "video_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__video-variable-onChange"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__video-variable-filterVar"
+      },
+      {
+       "label": "支持上下文对话",
+       "name": "payload__use_history",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "模型能够收到前轮对话内容以丰富背景信息输入",
+       "isChatModeRemain": true,
+       "onChangeCallbackKey": "online-llm-payload__use_history-onChange"
+      },
+      {
+       "label": "上下文窗口大小",
+       "name": "payload__context_window_size",
+       "type": "slider",
+       "defaultValue": 50,
+       "required": false,
+       "hide": true,
+       "itemProps": {
+        "min": 1,
+        "max": 100
+       }
+      },
+      {
+       "label": "异常处理",
+       "name": "error_strategy",
+       "type": "error_handle",
+       "tooltip": "配置异常处理策略，当节点发生异常时触发"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "d5c9f956-4fb8-4500-b442-c4e0e219b576",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "text",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "91828a51-92c0-474a-8262-e86f32668827"
+      }
+     ],
+     "name": "online-llm",
+     "classification": "basic-model",
+     "payload__kind": "OnlineLLM",
+     "payload__stream": true,
+     "title_en": "OnlineLLM",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "a36b7507-7daa-42c6-9383-c4e82f1b030e",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "payload__version": 2,
+     "payload__vision_enable": false,
+     "vision_param": {
+      "payload__vision_variable": {}
+     },
+     "payload__outputs": {
+      "text": {
+       "type": "string"
+      }
+     },
+     "payload__prompt": {
+      "system": "# 角色\n你是防汛风险智能对比与动态管控助手，面向防汛管理人员输出清晰的对比分析。\n# 约束\n- 只使用检索内容与代码计算结果，禁止编造风险点、等级、人数；\n- 等级表述统一为：重大/较大/一般/较小；\n- 给出变化原因分析时必须基于检索到的风险描述与管控措施变化；\n- 输出含数据来源说明；对比结果用列表或表格呈现。- 给出新增线路的风险点数、等级分布、风险密度（风险点数/站点数）对比与影响评估。",
+      "user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}\n\n知识库检索内容：\n{{#1900000000043.result._ideed6296c-652a-412f-adc9-0825c10b402c#}}\n\n请根据以上内容回答。"
+     },
+     "payload__model_type": "online",
+     "about": "",
+     "payload__response_format": "text",
+     "payload__use_history": false,
+     "payload__context_window_size": 50,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "125",
+      "142"
+     ],
+     "payload__online_model_brand": "125",
+     "payload__online_model_id": "142",
+     "payload__model_conf": {},
+     "payload__enable_thinking": false,
+     "payload__audio_variable": {},
+     "payload__video_variable": {},
+     "isVisionSwitchCanUse": true,
+     "payload__vision_variable": {},
+     "payload__prompt.system": "# 角色\n你是防汛风险智能对比与动态管控助手，面向防汛管理人员输出清晰的对比分析。\n# 约束\n- 只使用检索内容与代码计算结果，禁止编造风险点、等级、人数；\n- 等级表述统一为：重大/较大/一般/较小；\n- 给出变化原因分析时必须基于检索到的风险描述与管控措施变化；\n- 输出含数据来源说明；对比结果用列表或表格呈现。- 给出新增线路的风险点数、等级分布、风险密度（风险点数/站点数）对比与影响评估。",
+     "payload__prompt.user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}\n\n知识库检索内容：\n{{#1900000000043.result._ideed6296c-652a-412f-adc9-0825c10b402c#}}\n\n请根据以上内容回答。"
+    },
+    "position": {
+     "x": 1220,
+     "y": 440
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 1220,
+     "y": 440
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000045",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "清单检索-责任人",
+     "desc": "从文本类知识库中筛选出和用户查询相关的文档",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "label": "选择知识库",
+       "name": "payload__knowledgebase",
+       "type": "cascader",
+       "options_fetch_api": "/kb/catalogue/graph_tree?qtype=already",
+       "options_fetch_param_config": [
+        {
+         "valueSource": "nodeData",
+         "key": "check_ids",
+         "nodeKey": "payload__knowledge_ids"
+        }
+       ],
+       "placeholder": "请选择知识库",
+       "required": true,
+       "responseCallbackKey": "retrieverv2-payload__payload__knowledgebase-response",
+       "afterResponseChangeCallbackKey": "retrieverv2-payload__knowledgebase-after-response",
+       "onChangeCallbackKey": "retrieverv2-payload__knowledgebase-onChange",
+       "itemProps": {
+        "showCheckedStrategy": "SHOW_CHILD",
+        "multiple": true,
+        "maxTagCount": 70,
+        "optionRenderCallbackKey": "retrieverv2-payload__knowledgebase-option-render"
+       }
+      },
+      {
+       "label": "搜索策略",
+       "name": "payload__search_strategy",
+       "type": "select",
+       "tooltip": "混合搜索：融合“语义”+“关键字”相关性排序；<br/>关键字全文检索：按照关键字相关性排序；<br/>语义搜索：按照语义相关性排序",
+       "itemProps": {
+        "allowClear": false
+       },
+       "required": true,
+       "onChangeCallbackKey": "retrieverv2-payload__search-strategy-onChange",
+       "options": [
+        {
+         "label": "混合",
+         "value": "mixture"
+        },
+        {
+         "label": "关键字全文检索",
+         "value": "full_text"
+        },
+        {
+         "label": "语义搜索",
+         "value": "semantics"
+        }
+       ]
+      },
+      {
+       "label": "关键词权重",
+       "name": "payload__keyword_weight",
+       "type": "slider",
+       "itemProps": {
+        "step": 0.01,
+        "min": 0,
+        "max": 1
+       },
+       "defaultValue": 0.5,
+       "readonly": false,
+       "tooltip": "混合搜索模式下关键词匹配的权重。值越大越倾向精确匹配，值越小越倾向语义相似"
+      },
+      {
+       "name": "payload__metadata",
+       "type": "metadata"
+      },
+      {
+       "label": "最大召回数量",
+       "name": "payload__top_k",
+       "type": "number",
+       "required": true,
+       "tooltip": "从知识库中找出与用户查询最相关的前K个文档片段，作为上下文用于生成答案",
+       "defaultValue": 1,
+       "precision": 0,
+       "min": 1
+      },
+      {
+       "label": "最小匹配度",
+       "name": "payload__score_threshold",
+       "type": "number",
+       "required": true,
+       "tooltip": "召回相似度超过该数值的文本块",
+       "defaultValue": 0.1,
+       "precision": 1,
+       "min": 0.1,
+       "max": 1,
+       "itemProps": {
+        "stringMode": true,
+        "step": 0.1
+       }
+      },
+      {
+       "label": "输出格式",
+       "name": "payload__output_format",
+       "type": "select",
+       "required": false,
+       "tooltip": "节点：object类型，包含知识库相关内容及内容的坐标信息；<br/>内容：包含知识库相关内容；<br/>字典：dict类型，包含知识库相关内容及内容的坐标信息",
+       "itemProps": {
+        "allowClear": false,
+        "defaultValue": null
+       },
+       "options": [
+        {
+         "label": "节点",
+         "value": null
+        },
+        {
+         "label": "内容",
+         "value": "content"
+        },
+        {
+         "label": "字典",
+         "value": "dict"
+        }
+       ],
+       "onChangeCallbackKey": "retrieverv2-payload__output_format-onChange"
+      },
+      {
+       "label": "join",
+       "name": "payload__join",
+       "type": "select",
+       "required": false,
+       "readonly": true,
+       "options": [
+        {
+         "label": "False",
+         "value": false
+        },
+        {
+         "label": "True",
+         "value": true
+        }
+       ],
+       "itemProps": {
+        "defaultValue": false
+       },
+       "onChangeCallbackKey": "retrieverv2-payload__join-onChange"
+      },
+      {
+       "label": "开启溯源",
+       "name": "payload__return_source",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "开启后支持文本知识库溯源"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "239a135a-9d41-46d0-b93d-1f79934fc00c",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "result",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "id": "bd89bf98-2816-4c6b-a5fd-98c98801e545"
+      }
+     ],
+     "name": "retriever_v2",
+     "classification": "function-module",
+     "payload__kind": "RetrieverV2",
+     "title_en": "RetrieverV2",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "634df26a-99c1-43ce-a567-f517aa708b4b",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "payload__output_format": null,
+     "payload__outputs": {
+      "result": {
+       "type": "array[object]"
+      }
+     },
+     "payload__metadata": {
+      "metadata_filtering_mode": "disabled",
+      "metadata_definition": []
+     },
+     "about": "知识库检索",
+     "payload__keyword_weight": 0.7,
+     "payload__top_k": 10,
+     "payload__score_threshold": 0.3,
+     "payload__return_source": true,
+     "errorMessage": [],
+     "selected": false,
+     "payload__knowledgebase": [
+      [
+       "00000000-0000-0000-0000-000000000000",
+       "0c65c3b8-e4e7-4b20-af23-537ea9f7da5c",
+       "ad352453-353c-4e1a-9d24-6235edcd7223"
+      ]
+     ],
+     "payload__knowledge_ids": [
+      "ad352453-353c-4e1a-9d24-6235edcd7223"
+     ],
+     "payload__search_strategy": "mixture"
+    },
+    "position": {
+     "x": 680,
+     "y": 640
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 680,
+     "y": 640
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000046",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "重排-责任人",
+     "desc": "对查询文段进行进一步排序，选出更贴合用户查询的内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "tooltip": "查询到的文段内容以及用户的查询query输入",
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "model_resource",
+       "label": "重排模型",
+       "type": "cascader",
+       "required": true,
+       "tooltip": "基于所有检索结果，生成一个“最相关信息”的融合表示",
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "reranker-model_resource-response",
+       "onChangeCallbackKey": "reranker-model_resource-onChange"
+      },
+      {
+       "label": "排序保留多少个最相关的文档",
+       "name": "payload__top_k",
+       "type": "number",
+       "required": true,
+       "defaultValue": 1,
+       "precision": 0,
+       "min": 1
+      },
+      {
+       "label": "最小匹配度",
+       "name": "payload__score_threshold",
+       "type": "number",
+       "required": true,
+       "tooltip": "召回相似度超过该数值的文本块",
+       "defaultValue": 0.1,
+       "precision": 2,
+       "min": -10,
+       "max": 10,
+       "itemProps": {
+        "stringMode": true,
+        "step": 0.01
+       }
+      },
+      {
+       "label": "输出格式",
+       "name": "payload__output_format",
+       "type": "select",
+       "tooltip": "内容：包含知识库相关内容；<br/>字典：dict类型，包含知识库相关内容及内容的坐标信息",
+       "allowClear": false,
+       "options": [
+        {
+         "label": "内容",
+         "value": "content"
+        },
+        {
+         "label": "字典",
+         "value": "dict"
+        }
+       ],
+       "defaultValue": "content",
+       "onChangeCallbackKey": "reranker-payload__output_format-onChange"
+      },
+      {
+       "label": "是否将输出合并为一个字符串",
+       "name": "payload__join",
+       "type": "select",
+       "required": true,
+       "options": [
+        {
+         "label": "否",
+         "value": false
+        },
+        {
+         "label": "是",
+         "value": true
+        }
+       ],
+       "defaultValue": true,
+       "onChangeCallbackKey": "retrieverv2-payload__join-onChange"
+      },
+      {
+       "label": "开启溯源",
+       "name": "payload__return_source",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "开启后支持文本知识库溯源"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "8901782a-a1f7-4d9d-a1c9-aac732755406",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      },
+      {
+       "variable": "nodes",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "bd559bb2-b6e1-4e11-b1b8-8a6622763265",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000045",
+        "result",
+        "_idbd89bf98-2816-4c6b-a5fd-98c98801e545"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "result",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "id": "4910792d-5452-491b-a624-ca75533e0804"
+      }
+     ],
+     "name": "reranker",
+     "classification": "function-module",
+     "payload__kind": "Reranker",
+     "title_en": "Reranker",
+     "payload__type": "ModuleReranker",
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "ea16a2a9-f4ba-4167-adc1-763748636054",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      },
+      {
+       "variable": "nodes",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "b8329eae-c9c0-4e54-8484-4b3cb3558693",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000045",
+        "result",
+        "_idbd89bf98-2816-4c6b-a5fd-98c98801e545"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000045",
+        "result"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "result": {
+       "type": "string"
+      }
+     },
+     "about": "RAG模块的重排器",
+     "payload__top_k": 10,
+     "payload__score_threshold": 0.3,
+     "payload__output_format": "content",
+     "payload__join": true,
+     "payload__return_source": true,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "104",
+      "110"
+     ],
+     "payload__model_type": "online",
+     "payload__online_model_brand": "104",
+     "payload__online_model_id": "110"
+    },
+    "position": {
+     "x": 940,
+     "y": 640
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 940,
+     "y": 640
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000047",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "责任人对比计算",
+     "desc": "嵌入自定义的 Python ，可作为自定义方法级组件扩展。",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "hide": false
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "payload__code",
+       "type": "code",
+       "label": "Code",
+       "required": true
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "bdfe72fd-7daa-4b3a-a443-a4054794c18b",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      },
+      {
+       "variable": "docs",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "4e4651cc-e4a4-4e73-b130-733bbaf61a16",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000046",
+        "result",
+        "_id4910792d-5452-491b-a624-ca75533e0804"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "id": "cf29b61c-a5a2-4182-a61f-c26fcd915093",
+       "variable": "cmp",
+       "type": "string"
+      },
+      {
+       "id": "61f6a1da-5663-46ab-b861-e9f6e14ba6bf",
+       "variable": "new_list",
+       "type": "array[dict]"
+      },
+      {
+       "id": "99cbb8ea-a4ba-4dd5-bd24-23988fa46431",
+       "variable": "gone_list",
+       "type": "array[dict]"
+      },
+      {
+       "id": "da1b7641-eca8-4f34-be06-5f0d9d95433b",
+       "variable": "changed_list",
+       "type": "array[dict]"
+      },
+      {
+       "id": "497f9080-7098-49c7-ad52-ec1b6349dfa1",
+       "variable": "summary",
+       "type": "string"
+      }
+     ],
+     "name": "code",
+     "classification": "fundamental-component",
+     "payload__kind": "Code",
+     "config__can_run_by_single": true,
+     "payload__code": "def main(query: str, docs: str) -> dict:\n    import re\n\n    lv_map = {\"较小风险\": 1, \"一般风险\": 2, \"较大风险\": 3, \"重大风险\": 4}\n\n    # ---------- 1. 解析带年份标签的记录行 ----------\n    # 期望格式：【2023】线路 | 车站 | 部位 | 详细位置 | 风险等级 | 风险描述：… | 管控措施：… | 责任人：姓名\n    recs = []\n    for raw in (docs or \"\").splitlines():\n        line = raw.strip()\n        m = re.match(r\"^【(20\\\\d{2})】(.+)$\", line)\n        if not m:\n            continue\n        year = m.group(1)\n        parts = [p.strip() for p in m.group(2).split(\"|\")]\n        if len(parts) < 3:\n            continue\n        lv = \"\"\n        for p in parts:\n            p2 = p.replace(\"（直判）\", \"\").strip()\n            if p2 in lv_map:\n                lv = p2\n                break\n        owner = \"\"\n        mo = re.search(r\"责任人[:：]\\\\s*([\\u4e00-\\u9fa5]{2,4})\", line)\n        if mo:\n            owner = mo.group(1)\n        desc = \"\"\n        mdesc = re.search(r\"风险描述[:：]\\\\s*(.+?)(?:\\\\||$)\", line)\n        if mdesc:\n            desc = mdesc.group(1).strip()\n        recs.append({\"year\": year, \"line\": parts[0], \"station\": parts[1],\n                     \"part\": parts[2], \"level\": lv, \"desc\": desc, \"owner\": owner})\n\n    # ---------- 2. 按查询中的车站过滤 ----------\n    ms = re.search(r\"([\\u4e00-\\u9fa5]{2,10}站)\", query or \"\")\n    station = ms.group(1) if ms else \"\"\n    if station:\n        recs = [r for r in recs if r[\"station\"] == station]\n\n    r23 = {r[\"part\"]: r for r in recs if r[\"year\"] == \"2023\"}\n    r24 = {r[\"part\"]: r for r in recs if r[\"year\"] == \"2024\"}\n\n    new_list = [r24[k] for k in r24 if k not in r23]\n    gone_list = [r23[k] for k in r23 if k not in r24]\n    changed = []\n    for k in r23.keys() & r24.keys():\n        a, b = r23[k], r24[k]\n        c = {\"部位\": k, \"变化\": []}\n        if a[\"level\"] and b[\"level\"] and lv_map.get(a[\"level\"], 0) != lv_map.get(b[\"level\"], 0):\n            diff = lv_map[b[\"level\"]] - lv_map[a[\"level\"]]\n            c[\"变化\"].append(\"等级\" + a[\"level\"] + \"→\" + b[\"level\"] + (\"（升\" if diff > 0 else \"（降\") + str(abs(diff)) + \"级）\")\n        if a[\"owner\"] and b[\"owner\"] and a[\"owner\"] != b[\"owner\"]:\n            c[\"变化\"].append(\"责任人\" + a[\"owner\"] + \"→\" + b[\"owner\"])\n        if a[\"desc\"] and b[\"desc\"] and a[\"desc\"] != b[\"desc\"]:\n            c[\"变化\"].append(\"风险描述有更新\")\n        if c[\"变化\"]:\n            c[\"2023\"] = {\"等级\": a[\"level\"], \"责任人\": a[\"owner\"], \"描述\": a[\"desc\"]}\n            c[\"2024\"] = {\"等级\": b[\"level\"], \"责任人\": b[\"owner\"], \"描述\": b[\"desc\"]}\n            changed.append(c)\n\n    title = \"【\" + (station or \"相关站点\") + \" 2023↔2024 跨年度对比】\"\n    lines = [title]\n    lines.append(\"2023年 \" + str(len(r23)) + \" 个风险点，2024年 \" + str(len(r24)) + \" 个风险点\")\n    lines.append(\"新增 \" + str(len(new_list)) + \" 个：\" + (\"、\".join(r[\"part\"] for r in new_list) if new_list else \"无\"))\n    lines.append(\"消失 \" + str(len(gone_list)) + \" 个：\" + (\"、\".join(r[\"part\"] for r in gone_list) if gone_list else \"无\"))\n    if changed:\n        lines.append(\"发生变化 \" + str(len(changed)) + \" 个：\")\n        for c in changed:\n            lines.append(\"- \" + c[\"部位\"] + \"：\" + \"；\".join(c[\"变化\"]))\n    own23 = sorted({r[\"owner\"] for r in r23.values() if r[\"owner\"]})\n    own24 = sorted({r[\"owner\"] for r in r24.values() if r[\"owner\"]})\n    lines.append(\"责任人：2023年 \" + (\"、\".join(own23) or \"未知\") + \" → 2024年 \" + (\"、\".join(own24) or \"未知\"))\n\n    return {\"cmp\": \"\\n\".join(lines), \"new_list\": new_list,\n            \"gone_list\": gone_list, \"changed_list\": changed,\n            \"summary\": \"新增\" + str(len(new_list)) + \"，消失\" + str(len(gone_list)) + \"，变化\" + str(len(changed))}\n",
+     "title_en": "Code",
+     "about": "自定义函数和测试输入，并在后台提供一个沙箱协助用户执行代码。沙箱中需要管控好用户的权限，拒绝用户做删除系统文件等危险操作。目前仅支持python。",
+     "errorMessage": [],
+     "selected": false,
+     "payload__code_language": "python3",
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "a07945cf-2bbd-44ad-8e2f-b3c1740a6ff8",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      },
+      {
+       "variable": "docs",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "027e4582-d3e0-44eb-b9e3-be0d62e3eda9",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000046",
+        "result",
+        "_id4910792d-5452-491b-a624-ca75533e0804"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000046",
+        "result"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "cmp": {
+       "type": "string"
+      },
+      "new_list": {
+       "type": "array[dict]"
+      },
+      "gone_list": {
+       "type": "array[dict]"
+      },
+      "changed_list": {
+       "type": "array[dict]"
+      },
+      "summary": {
+       "type": "string"
+      }
+     }
+    },
+    "position": {
+     "x": 1220,
+     "y": 640
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 1220,
+     "y": 640
+    },
+    "width": 194,
+    "height": 103,
+    "selected": false
+   },
+   {
+    "id": "1900000000048",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "大模型-责任人报告",
+     "desc": "调用大语言模型，使用变量和提示词生成内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "type": "config__input_shape",
+       "name": "config__input_shape",
+       "label": "输入参数",
+       "tooltip": "输入需要添加到提示词的信息，这些信息可以被下方的提示词引用",
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "tooltip": "大模型生成的输出内容",
+       "type": "config__output_shape",
+       "name": "config__output_shape",
+       "label": "输出参数",
+       "notAllowedAddAndRemove": true,
+       "onChangeCallbackKey": "error_handle_shape_sync_onChange"
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "label": "支持结构化输出",
+       "name": "payload__response_format",
+       "type": "select",
+       "defaultValue": "text",
+       "required": false,
+       "tooltip": "<div>文本：使用普通文本格式回复<br/>JSON：将引导模型使用JSON格式输出</div>",
+       "options": [
+        {
+         "label": "文本",
+         "value": "text"
+        },
+        {
+         "label": "JSON",
+         "value": "json"
+        }
+       ],
+       "onChangeCallbackKey": "online-llm-payload__response_format-onChange"
+      },
+      {
+       "name": "model_resource",
+       "label": "大模型",
+       "type": "cascader",
+       "required": true,
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "online-llm-model_resource-response",
+       "onChangeCallbackKey": "online-llm-model_resource-onChange",
+       "additionalComponentConfig": {
+        "type": "button_trigger_parameters_config",
+        "labelCol": 20,
+        "wrapperCol": 4,
+        "name": "payload__model_conf"
+       }
+      },
+      {
+       "label": "音频输出",
+       "name": "payload__audio_output_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-output-enable-onChange"
+      },
+      {
+       "label": "思考模式",
+       "name": "payload__enable_thinking",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!mb-0",
+       "required": false,
+       "tooltip": "开启后，模型会先进行推理思考，再生成最终回答。选择支持 #深度思考 功能的模型即可开启",
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__enable_thinking-onChange"
+      },
+      {
+       "name": "payload__reasoning_split",
+       "type": "boolean",
+       "fieldProps": {
+        "label": "推理标签分离",
+        "layout": "horizontal",
+        "colon": false,
+        "labelAlign": "right"
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!pl-7",
+       "required": false,
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__reasoning_split-onChange"
+      },
+      {
+       "label": "提示词",
+       "name": "payload__prompt.system",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "SYSTEM",
+        "titleTooltip": "设定模型的角色和行为模式，决定对话的整体基调和方向"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange",
+       "fieldExtraComponentConfig": {
+        "name": "payload__prompt.system",
+        "type": "button_trigger_prompt_template",
+        "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+       }
+      },
+      {
+       "name": "payload__prompt.user",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "USER",
+        "titleTooltip": "用户输入的具体问题或请求，决定模型在当前对话中的具体回答内容",
+        "placeholder": "在这里编写提示词，输入“{”插入变量、输入“/”插入提示内容块；\n当提示词为空时，将自动使用当前节点配置的输入参数作为提示词，填写后则以当前内容为准",
+        "placeholderClassName": "whitespace-pre-wrap"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+      },
+      {
+       "type": "vision_param",
+       "name": "vision_param",
+       "label": "视觉理解",
+       "tooltip": "开启视觉理解功能将允许模型输入图片，并根据图像内容的理解回答用户问题，选择支持 #视觉、#全模态 功能的模型即可开启"
+      },
+      {
+       "label": "语音理解",
+       "name": "payload__audio_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启语音理解功能将允许模型输入语音文件，并根据语音内容的理解回答用户问题。选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "audio_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__audio-variable-filterVar"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__audio-variable-onChange"
+      },
+      {
+       "label": "视频理解",
+       "name": "payload__video_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启视频理解功能将允许模型输入视频，并根据视频内容的理解回答用户问题，选择支持 #视频、#全模态 功能的模型即可开启 ",
+       "onChangeCallbackKey": "online-llm-payload__video-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "video_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__video-variable-onChange"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__video-variable-filterVar"
+      },
+      {
+       "label": "支持上下文对话",
+       "name": "payload__use_history",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "模型能够收到前轮对话内容以丰富背景信息输入",
+       "isChatModeRemain": true,
+       "onChangeCallbackKey": "online-llm-payload__use_history-onChange"
+      },
+      {
+       "label": "上下文窗口大小",
+       "name": "payload__context_window_size",
+       "type": "slider",
+       "defaultValue": 50,
+       "required": false,
+       "hide": true,
+       "itemProps": {
+        "min": 1,
+        "max": 100
+       }
+      },
+      {
+       "label": "异常处理",
+       "name": "error_strategy",
+       "type": "error_handle",
+       "tooltip": "配置异常处理策略，当节点发生异常时触发"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "25ba6e5b-b015-4f6e-b35f-9ec490c8442b",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "text",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "0d523cef-bb2f-46aa-9922-45aaa95783cc"
+      }
+     ],
+     "name": "online-llm",
+     "classification": "basic-model",
+     "payload__kind": "OnlineLLM",
+     "payload__stream": true,
+     "title_en": "OnlineLLM",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "3efb6c4c-ef3a-43fb-a79d-4c039b389542",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "payload__version": 2,
+     "payload__vision_enable": false,
+     "vision_param": {
+      "payload__vision_variable": {}
+     },
+     "payload__outputs": {
+      "text": {
+       "type": "string"
+      }
+     },
+     "payload__prompt": {
+      "system": "# 角色\n你是防汛风险智能对比与动态管控助手，面向防汛管理人员输出清晰的对比分析。\n# 约束\n- 只使用检索内容与代码计算结果，禁止编造风险点、等级、人数；\n- 等级表述统一为：重大/较大/一般/较小；\n- 给出变化原因分析时必须基于检索到的风险描述与管控措施变化；\n- 输出含数据来源说明；对比结果用列表或表格呈现。- 责任人名单以代码计算结果为准；给出交接建议（确认接手、完成交接培训）。",
+      "user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}\n\n代码对比结果：\n{{#1900000000047.cmp._idcf29b61c-a5a2-4182-a61f-c26fcd915093#}}\n\n请生成责任人变更分析。"
+     },
+     "payload__model_type": "online",
+     "about": "",
+     "payload__response_format": "text",
+     "payload__use_history": false,
+     "payload__context_window_size": 50,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "125",
+      "142"
+     ],
+     "payload__online_model_brand": "125",
+     "payload__online_model_id": "142",
+     "payload__model_conf": {},
+     "payload__enable_thinking": false,
+     "payload__audio_variable": {},
+     "payload__video_variable": {},
+     "isVisionSwitchCanUse": true,
+     "payload__vision_variable": {},
+     "payload__prompt.system": "# 角色\n你是防汛风险智能对比与动态管控助手，面向防汛管理人员输出清晰的对比分析。\n# 约束\n- 只使用检索内容与代码计算结果，禁止编造风险点、等级、人数；\n- 等级表述统一为：重大/较大/一般/较小；\n- 给出变化原因分析时必须基于检索到的风险描述与管控措施变化；\n- 输出含数据来源说明；对比结果用列表或表格呈现。- 责任人名单以代码计算结果为准；给出交接建议（确认接手、完成交接培训）。",
+     "payload__prompt.user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}\n\n代码对比结果：\n{{#1900000000047.cmp._idcf29b61c-a5a2-4182-a61f-c26fcd915093#}}\n\n请生成责任人变更分析。"
+    },
+    "position": {
+     "x": 1500,
+     "y": 640
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 1500,
+     "y": 640
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000049",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "大模型-拒答",
+     "desc": "调用大语言模型，使用变量和提示词生成内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "type": "config__input_shape",
+       "name": "config__input_shape",
+       "label": "输入参数",
+       "tooltip": "输入需要添加到提示词的信息，这些信息可以被下方的提示词引用",
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "tooltip": "大模型生成的输出内容",
+       "type": "config__output_shape",
+       "name": "config__output_shape",
+       "label": "输出参数",
+       "notAllowedAddAndRemove": true,
+       "onChangeCallbackKey": "error_handle_shape_sync_onChange"
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "label": "支持结构化输出",
+       "name": "payload__response_format",
+       "type": "select",
+       "defaultValue": "text",
+       "required": false,
+       "tooltip": "<div>文本：使用普通文本格式回复<br/>JSON：将引导模型使用JSON格式输出</div>",
+       "options": [
+        {
+         "label": "文本",
+         "value": "text"
+        },
+        {
+         "label": "JSON",
+         "value": "json"
+        }
+       ],
+       "onChangeCallbackKey": "online-llm-payload__response_format-onChange"
+      },
+      {
+       "name": "model_resource",
+       "label": "大模型",
+       "type": "cascader",
+       "required": true,
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "online-llm-model_resource-response",
+       "onChangeCallbackKey": "online-llm-model_resource-onChange",
+       "additionalComponentConfig": {
+        "type": "button_trigger_parameters_config",
+        "labelCol": 20,
+        "wrapperCol": 4,
+        "name": "payload__model_conf"
+       }
+      },
+      {
+       "label": "音频输出",
+       "name": "payload__audio_output_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-output-enable-onChange"
+      },
+      {
+       "label": "思考模式",
+       "name": "payload__enable_thinking",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!mb-0",
+       "required": false,
+       "tooltip": "开启后，模型会先进行推理思考，再生成最终回答。选择支持 #深度思考 功能的模型即可开启",
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__enable_thinking-onChange"
+      },
+      {
+       "name": "payload__reasoning_split",
+       "type": "boolean",
+       "fieldProps": {
+        "label": "推理标签分离",
+        "layout": "horizontal",
+        "colon": false,
+        "labelAlign": "right"
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!pl-7",
+       "required": false,
+       "readonly": false,
+       "onChangeCallbackKey": "online-llm-payload__reasoning_split-onChange"
+      },
+      {
+       "label": "提示词",
+       "name": "payload__prompt.system",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "SYSTEM",
+        "titleTooltip": "设定模型的角色和行为模式，决定对话的整体基调和方向"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange",
+       "fieldExtraComponentConfig": {
+        "name": "payload__prompt.system",
+        "type": "button_trigger_prompt_template",
+        "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+       }
+      },
+      {
+       "name": "payload__prompt.user",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "USER",
+        "titleTooltip": "用户输入的具体问题或请求，决定模型在当前对话中的具体回答内容",
+        "placeholder": "在这里编写提示词，输入“{”插入变量、输入“/”插入提示内容块；\n当提示词为空时，将自动使用当前节点配置的输入参数作为提示词，填写后则以当前内容为准",
+        "placeholderClassName": "whitespace-pre-wrap"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+      },
+      {
+       "type": "vision_param",
+       "name": "vision_param",
+       "label": "视觉理解",
+       "tooltip": "开启视觉理解功能将允许模型输入图片，并根据图像内容的理解回答用户问题，选择支持 #视觉、#全模态 功能的模型即可开启"
+      },
+      {
+       "label": "语音理解",
+       "name": "payload__audio_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启语音理解功能将允许模型输入语音文件，并根据语音内容的理解回答用户问题。选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "audio_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__audio-variable-filterVar"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__audio-variable-onChange"
+      },
+      {
+       "label": "视频理解",
+       "name": "payload__video_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启视频理解功能将允许模型输入视频，并根据视频内容的理解回答用户问题，选择支持 #视频、#全模态 功能的模型即可开启 ",
+       "onChangeCallbackKey": "online-llm-payload__video-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "video_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__video-variable-onChange"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__video-variable-filterVar"
+      },
+      {
+       "label": "支持上下文对话",
+       "name": "payload__use_history",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "模型能够收到前轮对话内容以丰富背景信息输入",
+       "isChatModeRemain": true,
+       "onChangeCallbackKey": "online-llm-payload__use_history-onChange"
+      },
+      {
+       "label": "上下文窗口大小",
+       "name": "payload__context_window_size",
+       "type": "slider",
+       "defaultValue": 50,
+       "required": false,
+       "hide": true,
+       "itemProps": {
+        "min": 1,
+        "max": 100
+       }
+      },
+      {
+       "label": "异常处理",
+       "name": "error_strategy",
+       "type": "error_handle",
+       "tooltip": "配置异常处理策略，当节点发生异常时触发"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "279ad39c-ec85-4dc2-a273-b3e817e6282f",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "text",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "5a1d3d7a-ad87-4324-85b7-be15e93fa150"
+      }
+     ],
+     "name": "online-llm",
+     "classification": "basic-model",
+     "payload__kind": "OnlineLLM",
+     "payload__stream": true,
+     "title_en": "OnlineLLM",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "79005329-ad29-4011-9603-f07bd365984c",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000033",
+        "query",
+        "_id3e67e7de-44c2-4227-8660-8c9359637142"
+       ],
+       "type_readonly_initial": true,
+       "is_constant": false,
+       "value_selector": [
+        "1900000000033",
+        "query"
+       ]
+      }
+     ],
+     "payload__version": 2,
+     "payload__vision_enable": false,
+     "vision_param": {
+      "payload__vision_variable": {}
+     },
+     "payload__outputs": {
+      "text": {
+       "type": "string"
+      }
+     },
+     "payload__prompt": {
+      "system": "# 角色\n你是本助手的拒答话术生成器。\n# 任务\n用户问题与本系统业务无关，生成一句礼貌简短的拒答，并给出2个用户可以问的示例问题。\n# 约束\n不回答用户问题本身；不过度道歉；只说拒答和示例。",
+      "user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}"
+     },
+     "payload__model_type": "online",
+     "about": "",
+     "payload__response_format": "text",
+     "payload__use_history": false,
+     "payload__context_window_size": 50,
+     "errorMessage": [],
+     "selected": false,
+     "model_resource": [
+      "129",
+      "149"
+     ],
+     "payload__online_model_brand": "129",
+     "payload__online_model_id": "149",
+     "payload__model_conf": {},
+     "payload__enable_thinking": false,
+     "payload__audio_variable": {},
+     "payload__video_variable": {},
+     "isVisionSwitchCanUse": true,
+     "payload__vision_variable": {},
+     "payload__prompt.system": "# 角色\n你是本助手的拒答话术生成器。\n# 任务\n用户问题与本系统业务无关，生成一句礼貌简短的拒答，并给出2个用户可以问的示例问题。\n# 约束\n不回答用户问题本身；不过度道歉；只说拒答和示例。",
+     "payload__prompt.user": "用户问题：{{#1900000000033.query._id3e67e7de-44c2-4227-8660-8c9359637142#}}"
+    },
+    "position": {
+     "x": 680,
+     "y": 840
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 680,
+     "y": 840
+    },
+    "width": 195,
+    "height": 104,
+    "selected": false
+   },
+   {
+    "id": "1900000000050",
+    "type": "custom",
+    "data": {
+     "type": "end",
+     "title": "结束",
+     "desc": "",
+     "payload__kind": "__end__",
+     "outputs": [],
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [],
+     "config__input_shape": [
+      {
+       "id": "3bf086e1-8f29-4dc5-bc5b-26935724eda8",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000037",
+        "text",
+        "_id47650708-33cb-4988-b01c-d69d4b1d4fe0"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text1",
+       "type": "string"
+      },
+      {
+       "id": "2b371ea4-9ca8-4667-a82c-8bc71dff3a71",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000041",
+        "text",
+        "_idabd7e7cd-bd02-4eb1-be40-51468d5dfc2d"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text2",
+       "type": "string"
+      },
+      {
+       "id": "d67bfaba-6899-4507-96c7-ea41577f0874",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000044",
+        "text",
+        "_id91828a51-92c0-474a-8262-e86f32668827"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text3",
+       "type": "string"
+      },
+      {
+       "id": "9ee53177-c82f-4af3-b3c8-18fcf9ad21b7",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000048",
+        "text",
+        "_id0d523cef-bb2f-46aa-9922-45aaa95783cc"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text4",
+       "type": "string"
+      },
+      {
+       "id": "e15a3410-dfde-48be-895c-6f93506c48a4",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000049",
+        "text",
+        "_id5a1d3d7a-ad87-4324-85b7-be15e93fa150"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text5",
+       "type": "string"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "参数"
+      }
+     ],
+     "name": "end",
+     "selected": false,
+     "errorMessage": [],
+     "payload__outputs": [
+      {
+       "id": "3bf086e1-8f29-4dc5-bc5b-26935724eda8",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000037",
+        "text",
+        "_id47650708-33cb-4988-b01c-d69d4b1d4fe0"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text1",
+       "type": "string",
+       "is_constant": false,
+       "value_selector": [
+        "1900000000037",
+        "text"
+       ]
+      },
+      {
+       "id": "2b371ea4-9ca8-4667-a82c-8bc71dff3a71",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000041",
+        "text",
+        "_idabd7e7cd-bd02-4eb1-be40-51468d5dfc2d"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text2",
+       "type": "string",
+       "is_constant": false,
+       "value_selector": [
+        "1900000000041",
+        "text"
+       ]
+      },
+      {
+       "id": "d67bfaba-6899-4507-96c7-ea41577f0874",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000044",
+        "text",
+        "_id91828a51-92c0-474a-8262-e86f32668827"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text3",
+       "type": "string",
+       "is_constant": false,
+       "value_selector": [
+        "1900000000044",
+        "text"
+       ]
+      },
+      {
+       "id": "9ee53177-c82f-4af3-b3c8-18fcf9ad21b7",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000048",
+        "text",
+        "_id0d523cef-bb2f-46aa-9922-45aaa95783cc"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text4",
+       "type": "string",
+       "is_constant": false,
+       "value_selector": [
+        "1900000000048",
+        "text"
+       ]
+      },
+      {
+       "id": "e15a3410-dfde-48be-895c-6f93506c48a4",
+       "defaultBooleanValue": false,
+       "variable_readonly": false,
+       "type_readonly": true,
+       "readonly": false,
+       "variable_channel": [
+        "1900000000049",
+        "text",
+        "_id5a1d3d7a-ad87-4324-85b7-be15e93fa150"
+       ],
+       "type_readonly_initial": false,
+       "variable": "text5",
+       "type": "string",
+       "is_constant": false,
+       "value_selector": [
+        "1900000000049",
+        "text"
+       ]
+      }
+     ]
+    },
+    "position": {
+     "x": 1900,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 1900,
+     "y": 300
+    },
+    "width": 195,
+    "height": 60,
+    "selected": false
+   }
+  ],
+  "note_nodes": [],
+  "edges": [
+   {
+    "id": "1900000000033-source-1900000000034-target",
+    "type": "custom",
+    "source": "1900000000033",
+    "target": "1900000000034",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "start",
+     "targetType": "universe",
+     "targetNodeName": "intention",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000035-source-1900000000036-target",
+    "type": "custom",
+    "source": "1900000000035",
+    "target": "1900000000036",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "reranker",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000034-true-1900000000035-target",
+    "type": "custom",
+    "source": "1900000000034",
+    "target": "1900000000035",
+    "sourceHandle": "true",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "retriever_v2",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000036-source-1900000000037-target",
+    "type": "custom",
+    "source": "1900000000036",
+    "target": "1900000000037",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "online-llm",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000038-source-1900000000039-target",
+    "type": "custom",
+    "source": "1900000000038",
+    "target": "1900000000039",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "reranker",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000034-84ab14f9-452d-409a-953e-97458daf95b0-1900000000038-target",
+    "type": "custom",
+    "source": "1900000000034",
+    "target": "1900000000038",
+    "sourceHandle": "84ab14f9-452d-409a-953e-97458daf95b0",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "retriever_v2",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000039-source-1900000000040-target",
+    "type": "custom",
+    "source": "1900000000039",
+    "target": "1900000000040",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "code",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000040-source-1900000000041-target",
+    "type": "custom",
+    "source": "1900000000040",
+    "target": "1900000000041",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "online-llm",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000042-source-1900000000043-target",
+    "type": "custom",
+    "source": "1900000000042",
+    "target": "1900000000043",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "reranker",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000034-59f9fe9f-c040-4730-ba27-cd15d31e3c2a-1900000000042-target",
+    "type": "custom",
+    "source": "1900000000034",
+    "target": "1900000000042",
+    "sourceHandle": "59f9fe9f-c040-4730-ba27-cd15d31e3c2a",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "retriever_v2",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000043-source-1900000000044-target",
+    "type": "custom",
+    "source": "1900000000043",
+    "target": "1900000000044",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "online-llm",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000045-source-1900000000046-target",
+    "type": "custom",
+    "source": "1900000000045",
+    "target": "1900000000046",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "reranker",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000034-8b30af1b-d3e0-4feb-b972-e035f09cf37c-1900000000045-target",
+    "type": "custom",
+    "source": "1900000000034",
+    "target": "1900000000045",
+    "sourceHandle": "8b30af1b-d3e0-4feb-b972-e035f09cf37c",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "retriever_v2",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000046-source-1900000000047-target",
+    "type": "custom",
+    "source": "1900000000046",
+    "target": "1900000000047",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "code",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000047-source-1900000000048-target",
+    "type": "custom",
+    "source": "1900000000047",
+    "target": "1900000000048",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "online-llm",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000034-false-1900000000049-target",
+    "type": "custom",
+    "source": "1900000000034",
+    "target": "1900000000049",
+    "sourceHandle": "false",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "online-llm",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000037-source-1900000000050-target",
+    "type": "custom",
+    "source": "1900000000037",
+    "target": "1900000000050",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "end",
+     "targetNodeName": "end",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000041-source-1900000000050-target",
+    "type": "custom",
+    "source": "1900000000041",
+    "target": "1900000000050",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "end",
+     "targetNodeName": "end",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000044-source-1900000000050-target",
+    "type": "custom",
+    "source": "1900000000044",
+    "target": "1900000000050",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "end",
+     "targetNodeName": "end",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000048-source-1900000000050-target",
+    "type": "custom",
+    "source": "1900000000048",
+    "target": "1900000000050",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "end",
+     "targetNodeName": "end",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1900000000049-source-1900000000050-target",
+    "type": "custom",
+    "source": "1900000000049",
+    "target": "1900000000050",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "end",
+     "targetNodeName": "end",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   }
+  ],
+  "viewport": {
+   "x": 0,
+   "y": 0,
+   "zoom": 0.7
+  },
+  "environment_variables": [],
+  "conversation_variables": [],
+  "graph_version": "draft"
+ }
+}

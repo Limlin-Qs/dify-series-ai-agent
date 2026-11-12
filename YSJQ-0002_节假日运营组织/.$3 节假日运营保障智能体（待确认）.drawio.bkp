@@ -1,0 +1,215 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.0 Safari/537.36" version="29.6.1">
+  <diagram name="节假日运营保障" id="ZKSKJq0hAy2rA9sTvGZx">
+    <mxGraphModel dx="602" dy="953" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="t1LQRSANRmW4bhekyoT4-0" />
+        <mxCell id="t1LQRSANRmW4bhekyoT4-1" parent="t1LQRSANRmW4bhekyoT4-0" />
+        <mxCell id="QFPizdPVbsqMnKPnPU4r-50" parent="t1LQRSANRmW4bhekyoT4-1" style="text;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;智能体分析受影响的区域识别需通知的人员和专业，生成需要信息发布的内容和专业任务&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="560" x="1870" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="QFPizdPVbsqMnKPnPU4r-0" parent="t1LQRSANRmW4bhekyoT4-1" style="swimlane;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;startSize=20;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="智能体场景：节假日运营保障智能体" vertex="1">
+          <mxGeometry height="1150" width="1471.25" x="1640" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="QFPizdPVbsqMnKPnPU4r-1" parent="QFPizdPVbsqMnKPnPU4r-0" style="swimlane;startSize=20;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="依赖第三方系统（平台）" vertex="1">
+          <mxGeometry height="1130" width="160" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="IuUR-UggaUsFa9EHQcmF-110" connectable="0" parent="QFPizdPVbsqMnKPnPU4r-1" style="group" value="" vertex="1">
+          <mxGeometry height="70" width="100" x="33" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IuUR-UggaUsFa9EHQcmF-84" parent="IuUR-UggaUsFa9EHQcmF-110" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="智慧运行平台" vertex="1">
+          <mxGeometry height="30" width="60" x="17" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IuUR-UggaUsFa9EHQcmF-107" connectable="0" parent="IuUR-UggaUsFa9EHQcmF-110" style="group" value="" vertex="1">
+          <mxGeometry height="70" width="100" as="geometry" />
+        </mxCell>
+        <mxCell id="IuUR-UggaUsFa9EHQcmF-108" parent="IuUR-UggaUsFa9EHQcmF-107" style="image;html=1;image=img/lib/clip_art/computers/iMac_128x128.png" value="" vertex="1">
+          <mxGeometry height="40" width="60" x="20" y="-5.49" as="geometry" />
+        </mxCell>
+        <mxCell id="ad5sY1MKg-FYFaAAJZhv-32" parent="QFPizdPVbsqMnKPnPU4r-1" style="image;html=1;image=img/lib/clip_art/computers/iMac_128x128.png" value="" vertex="1">
+          <mxGeometry height="40" width="60" x="37" y="826" as="geometry" />
+        </mxCell>
+        <mxCell id="ad5sY1MKg-FYFaAAJZhv-33" parent="QFPizdPVbsqMnKPnPU4r-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="智慧运行平台" vertex="1">
+          <mxGeometry height="30" width="110" x="14" y="871" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-10" connectable="0" parent="QFPizdPVbsqMnKPnPU4r-1" style="group" value="" vertex="1">
+          <mxGeometry height="70" width="100" x="26" y="403" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-11" parent="913u3C5-r093cr9ZFYes-10" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="智慧运行平台" vertex="1">
+          <mxGeometry height="30" width="60" x="17" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-12" connectable="0" parent="913u3C5-r093cr9ZFYes-10" style="group" value="" vertex="1">
+          <mxGeometry height="70" width="100" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-13" parent="913u3C5-r093cr9ZFYes-12" style="image;html=1;image=img/lib/clip_art/computers/iMac_128x128.png" value="" vertex="1">
+          <mxGeometry height="40" width="60" x="20" y="-5.49" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-39" connectable="0" parent="QFPizdPVbsqMnKPnPU4r-1" style="group" value="" vertex="1">
+          <mxGeometry height="70" width="100" x="14" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-40" parent="913u3C5-r093cr9ZFYes-39" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="智慧运行平台" vertex="1">
+          <mxGeometry height="30" width="60" x="17" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="xwPgxi2ddG3s7lOkV5XR-1" parent="QFPizdPVbsqMnKPnPU4r-1" style="image;html=1;image=img/lib/clip_art/computers/iMac_128x128.png" value="" vertex="1">
+          <mxGeometry height="40" width="60" x="39" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="xwPgxi2ddG3s7lOkV5XR-2" parent="QFPizdPVbsqMnKPnPU4r-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="智慧运行平台" vertex="1">
+          <mxGeometry height="30" width="110" x="9" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="QFPizdPVbsqMnKPnPU4r-8" parent="QFPizdPVbsqMnKPnPU4r-0" style="swimlane;startSize=20;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="对接数据" vertex="1">
+          <mxGeometry height="1130" width="290" x="160" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="IuUR-UggaUsFa9EHQcmF-87" parent="QFPizdPVbsqMnKPnPU4r-8" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="上传上级旅游政策、天气状况、活动信息等外部信息" vertex="1">
+          <mxGeometry height="37" width="290" x="20" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="ad5sY1MKg-FYFaAAJZhv-6" parent="QFPizdPVbsqMnKPnPU4r-8" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="发送客流预测数据、外部信息" vertex="1">
+          <mxGeometry height="46" width="280" x="20" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ad5sY1MKg-FYFaAAJZhv-35" parent="QFPizdPVbsqMnKPnPU4r-8" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="节假日运营组织方案" vertex="1">
+          <mxGeometry height="46" width="280" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-17" parent="QFPizdPVbsqMnKPnPU4r-8" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="发送国铁列车、机场航班计划（人工上传）" vertex="1">
+          <mxGeometry height="30" width="250" x="15" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-26" parent="QFPizdPVbsqMnKPnPU4r-8" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="发送日常运行图参数" vertex="1">
+          <mxGeometry height="30" width="130" x="60" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-46" parent="QFPizdPVbsqMnKPnPU4r-8" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="发送日报系统假期期间客流、满载率等运力匹配效果、&lt;div&gt;现场反馈表（人工录入）&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="310" y="979" as="geometry" />
+        </mxCell>
+        <mxCell id="xwPgxi2ddG3s7lOkV5XR-8" parent="QFPizdPVbsqMnKPnPU4r-8" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="各专业对假期的保障要求" vertex="1">
+          <mxGeometry height="30" width="130" x="90" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="QFPizdPVbsqMnKPnPU4r-10" parent="QFPizdPVbsqMnKPnPU4r-0" style="swimlane;startSize=20;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; " vertex="1">
+          <mxGeometry height="1130" width="341.25" x="450" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="v_LHA48ZbIHrvsod5uSi-8" edge="1" parent="QFPizdPVbsqMnKPnPU4r-10" source="QFPizdPVbsqMnKPnPU4r-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="v_LHA48ZbIHrvsod5uSi-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QFPizdPVbsqMnKPnPU4r-14" parent="QFPizdPVbsqMnKPnPU4r-10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="计算各线路假期前一日及假期运输安排（上线车数、行车间隔、行车交路、运营时间等）" vertex="1">
+          <mxGeometry height="60" width="180" x="85" y="428" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-8" edge="1" parent="QFPizdPVbsqMnKPnPU4r-10" source="QFPizdPVbsqMnKPnPU4r-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="913u3C5-r093cr9ZFYes-4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QFPizdPVbsqMnKPnPU4r-16" parent="QFPizdPVbsqMnKPnPU4r-10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="总结假期概况，研判对地铁运营组织的影响&lt;div&gt;对线网及线路客运量、断面预测客流进行对比展示&lt;/div&gt;&lt;div&gt;对沿线活动信息进行固定展示，并进行分析&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="180" x="85" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="xwPgxi2ddG3s7lOkV5XR-9" edge="1" parent="QFPizdPVbsqMnKPnPU4r-10" source="v_LHA48ZbIHrvsod5uSi-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="913u3C5-r093cr9ZFYes-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v_LHA48ZbIHrvsod5uSi-6" parent="QFPizdPVbsqMnKPnPU4r-10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;div&gt;对比假期与日常的运输安排变化，对比&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;夜间施工时间变化，以及计算假期国铁列车、机场航班每日覆盖率&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="180" x="85" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="ad5sY1MKg-FYFaAAJZhv-56" parent="QFPizdPVbsqMnKPnPU4r-10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="根据客流规律、运行图运力匹配、现场意见等形成节假日总结" vertex="1">
+          <mxGeometry height="50" width="210" x="70" y="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-9" edge="1" parent="QFPizdPVbsqMnKPnPU4r-10" source="913u3C5-r093cr9ZFYes-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="QFPizdPVbsqMnKPnPU4r-14" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-4" parent="QFPizdPVbsqMnKPnPU4r-10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="确定重点保障车站，并划定保障级别" vertex="1">
+          <mxGeometry height="60" width="180" x="85" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="xwPgxi2ddG3s7lOkV5XR-11" edge="1" parent="QFPizdPVbsqMnKPnPU4r-10" source="913u3C5-r093cr9ZFYes-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ad5sY1MKg-FYFaAAJZhv-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-29" parent="QFPizdPVbsqMnKPnPU4r-10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="完成保障方案终稿" vertex="1">
+          <mxGeometry height="50" width="190" x="80" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-38" parent="QFPizdPVbsqMnKPnPU4r-10" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="假期后" vertex="1">
+          <mxGeometry height="30" width="60" x="180" y="949" as="geometry" />
+        </mxCell>
+        <mxCell id="QFPizdPVbsqMnKPnPU4r-23" parent="QFPizdPVbsqMnKPnPU4r-0" style="swimlane;startSize=20;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="运输工作岗" vertex="1">
+          <mxGeometry height="1130" width="220" x="791.25" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-35" edge="1" parent="QFPizdPVbsqMnKPnPU4r-23" source="ad5sY1MKg-FYFaAAJZhv-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-71.25" y="780.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ad5sY1MKg-FYFaAAJZhv-24" parent="QFPizdPVbsqMnKPnPU4r-23" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;审核&lt;/span&gt;" vertex="1">
+          <mxGeometry height="43" width="150" x="30" y="759" as="geometry" />
+        </mxCell>
+        <mxCell id="ad5sY1MKg-FYFaAAJZhv-66" parent="QFPizdPVbsqMnKPnPU4r-23" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;提出需求&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="147" x="43" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-44" parent="QFPizdPVbsqMnKPnPU4r-23" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;审核&lt;/span&gt;" vertex="1">
+          <mxGeometry height="43" width="150" x="30" y="1004" as="geometry" />
+        </mxCell>
+        <mxCell id="IuUR-UggaUsFa9EHQcmF-37" parent="QFPizdPVbsqMnKPnPU4r-0" style="swimlane;startSize=20;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="涉及专业" vertex="1">
+          <mxGeometry height="1130" width="240" x="1011.25" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-18" parent="IuUR-UggaUsFa9EHQcmF-37" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;span style=&quot;font-family: MicrosoftYaHei; font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;党群工作部：舆情风险，宣传与&lt;span style=&quot;font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;舆情保障要求&lt;/span&gt;&lt;br class=&quot;Apple-interchange-newline&quot;&gt;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-family: MicrosoftYaHei; font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;&lt;span style=&quot;font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;人力资源部：人员保障要求&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-family: MicrosoftYaHei; font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;科技创新部：设备风险与保障要&lt;span style=&quot;font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;求&lt;/span&gt;&lt;br style=&quot;font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal; line-height: normal; text-align: -webkit-auto; text-size-adjust: auto;&quot;&gt;&lt;span style=&quot;font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;安全保卫部：安全风险与保障要&lt;span style=&quot;font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;求&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-family: MicrosoftYaHei; font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;调度指挥中心：信息发布、行车组&lt;span style=&quot;font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;织、票务组织与保&lt;span style=&quot;font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;障&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-family: MicrosoftYaHei; font-size: 10pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; font-variant-emoji: normal;&quot;&gt;物资后勤中心：物资保障要求&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="240" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-32" parent="IuUR-UggaUsFa9EHQcmF-37" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;意见反馈（各中心）&lt;/span&gt;" vertex="1">
+          <mxGeometry height="43" width="150" x="52.75" y="759" as="geometry" />
+        </mxCell>
+        <mxCell id="IuUR-UggaUsFa9EHQcmF-4" parent="QFPizdPVbsqMnKPnPU4r-0" style="swimlane;startSize=20;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="生产服务管理岗及公司领导" vertex="1">
+          <mxGeometry height="1130" width="220" x="1251.25" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-47" parent="IuUR-UggaUsFa9EHQcmF-4" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;审核&lt;/span&gt;" vertex="1">
+          <mxGeometry height="43" width="150" x="48.75" y="759" as="geometry" />
+        </mxCell>
+        <mxCell id="IuUR-UggaUsFa9EHQcmF-89" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="IuUR-UggaUsFa9EHQcmF-84" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="QFPizdPVbsqMnKPnPU4r-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="80" y="250" />
+            </Array>
+            <mxPoint x="641.0588235294117" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ad5sY1MKg-FYFaAAJZhv-67" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="ad5sY1MKg-FYFaAAJZhv-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" target="IuUR-UggaUsFa9EHQcmF-84">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="492" y="148" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-16" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="913u3C5-r093cr9ZFYes-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="QFPizdPVbsqMnKPnPU4r-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-31" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="913u3C5-r093cr9ZFYes-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="ad5sY1MKg-FYFaAAJZhv-24" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-33" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="ad5sY1MKg-FYFaAAJZhv-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="913u3C5-r093cr9ZFYes-32" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-34" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="913u3C5-r093cr9ZFYes-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="ad5sY1MKg-FYFaAAJZhv-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-43" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="913u3C5-r093cr9ZFYes-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="ad5sY1MKg-FYFaAAJZhv-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-45" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="ad5sY1MKg-FYFaAAJZhv-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="913u3C5-r093cr9ZFYes-44" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-48" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="913u3C5-r093cr9ZFYes-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="913u3C5-r093cr9ZFYes-47" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xwPgxi2ddG3s7lOkV5XR-0" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="913u3C5-r093cr9ZFYes-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="v_LHA48ZbIHrvsod5uSi-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xwPgxi2ddG3s7lOkV5XR-6" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="913u3C5-r093cr9ZFYes-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="xwPgxi2ddG3s7lOkV5XR-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="720" y="720" />
+              <mxPoint x="720" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xwPgxi2ddG3s7lOkV5XR-7" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="xwPgxi2ddG3s7lOkV5XR-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="913u3C5-r093cr9ZFYes-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xwPgxi2ddG3s7lOkV5XR-10" edge="1" parent="QFPizdPVbsqMnKPnPU4r-0" source="913u3C5-r093cr9ZFYes-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" target="ad5sY1MKg-FYFaAAJZhv-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-41" connectable="0" parent="t1LQRSANRmW4bhekyoT4-1" style="group" value="" vertex="1">
+          <mxGeometry height="70" width="100" x="1654" y="1163" as="geometry" />
+        </mxCell>
+        <mxCell id="913u3C5-r093cr9ZFYes-42" parent="913u3C5-r093cr9ZFYes-41" style="image;html=1;image=img/lib/clip_art/computers/iMac_128x128.png" value="" vertex="1">
+          <mxGeometry height="40" width="60" x="20" y="-5.49" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

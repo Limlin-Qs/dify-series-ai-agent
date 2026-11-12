@@ -1,0 +1,1291 @@
+{
+ "id": "5ea9e23f-2bfe-48ed-aeb2-daf760294ea5",
+ "name": "MS_DW_002 多源客流融合微智能体",
+ "description": "多网融合场景微智能体：上传多源数据文件，自动解析并对齐时间/空间两条线，计算枢纽方式统计与时段矩阵，由模型解读生成融合分析报告。",
+ "icon": null,
+ "icon_background": null,
+ "categories": [],
+ "apptype": "chatflow",
+ "tags": [],
+ "clusters": [],
+ "graph": {
+  "nodes": [
+   {
+    "id": "bb0a6651-0d0c-4ded-8791-0b00210121c6",
+    "type": "custom",
+    "data": {
+     "type": "start",
+     "title": "开始",
+     "desc": "流程的起始节点",
+     "payload__kind": "__start__",
+     "variables": [],
+     "config__input_ports": [],
+     "config__output_shape": [
+      {
+       "variable": "user_id",
+       "type": "string",
+       "variable_category": "sys",
+       "id": "1a4c2953-4285-44bc-90a6-a51ecdd21ed3"
+      },
+      {
+       "variable": "app_id",
+       "type": "string",
+       "variable_category": "sys",
+       "id": "39482270-5268-44e3-b42e-9159e96012df"
+      },
+      {
+       "variable": "conversation_id",
+       "type": "string",
+       "variable_category": "sys",
+       "id": "683e2ce7-e579-4070-9fb8-273e7bb4c003"
+      },
+      {
+       "variable": "query",
+       "type": "string",
+       "variable_category": "sys",
+       "id": "e1538b97-66aa-4896-a835-c491825fdaf2"
+      },
+      {
+       "variable": "files",
+       "enable": true,
+       "type": "array[file]",
+       "variable_category": "sys",
+       "id": "baa7f170-0125-4c9a-8e9d-a3e70fb5da30",
+       "allowed_file_upload_methods": [
+        "local_file",
+        "remote_url"
+       ],
+       "allowed_file_types": [
+        "document"
+       ]
+      },
+      {
+       "variable": "image_files",
+       "enable": true,
+       "type": "array[file]",
+       "variable_category": "sys",
+       "id": "3da0cd97-652a-4b00-b521-c50200976d24",
+       "allowed_file_upload_methods": [
+        "local_file",
+        "remote_url"
+       ],
+       "allowed_file_types": [
+        "image"
+       ]
+      },
+      {
+       "variable": "speech",
+       "enable": true,
+       "type": "file",
+       "variable_category": "sys",
+       "id": "04c7293f-6e59-47f7-aa86-47fb15218a6d",
+       "allowed_file_upload_methods": [
+        "local_file",
+        "remote_url"
+       ],
+       "allowed_file_types": [
+        "audio"
+       ]
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "参数",
+       "tooltip": "定义工作流需要的输入参数，可以选择多种格式"
+      }
+     ],
+     "name": "start",
+     "errorMessage": [],
+     "selected": false,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "label": "分析问题",
+       "type": "string",
+       "max_length": 1000,
+       "required": true,
+       "options": [],
+       "id": "8f10c2d1-bd92-4764-ac20-ddb2e84d8601"
+      }
+     ]
+    },
+    "position": {
+     "x": -300,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": -300,
+     "y": 300
+    },
+    "width": 195,
+    "height": 320,
+    "selected": false
+   },
+   {
+    "id": "1793865552961",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "多源文件解析",
+     "desc": "解析并读取文件中的信息",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "hide": false,
+       "notAllowedAddAndRemove": true,
+       "onChangeCallbackKey": "docextract__input_shape_onChange"
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false,
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "payload__retry_times",
+       "type": "number",
+       "label": "重试次数",
+       "tooltip": "当发生错误时节点会尝试重新执行",
+       "required": true,
+       "itemProps": {
+        "max": 5
+       }
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "files",
+       "variable_readonly": true,
+       "type": "array[file]",
+       "type_readonly": true,
+       "type_options": [
+        "array[file]",
+        "file"
+       ],
+       "variable_allow_clear": false,
+       "id": "54d56510-cd83-4f1d-a2c3-65c9b76cf2d2",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "bb0a6651-0d0c-4ded-8791-0b00210121c6",
+        "sys",
+        "files",
+        "_idbaa7f170-0125-4c9a-8e9d-a3e70fb5da30"
+       ],
+       "type_readonly_initial": false
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "result",
+       "variable_readonly": true,
+       "type": "array[object]",
+       "type_readonly": true,
+       "id": "a99d50d6-826e-4a4d-8564-03f38ddb4c57"
+      }
+     ],
+     "name": "docExtract",
+     "classification": "fundamental-component",
+     "payload__kind": "DocExtract",
+     "title_en": "document extract",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "files",
+       "variable_readonly": true,
+       "type": "array[file]",
+       "type_readonly": true,
+       "type_options": [
+        "array[file]",
+        "file"
+       ],
+       "variable_allow_clear": false,
+       "id": "54d56510-cd83-4f1d-a2c3-65c9b76cf2d2",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "bb0a6651-0d0c-4ded-8791-0b00210121c6",
+        "sys",
+        "files",
+        "_idbaa7f170-0125-4c9a-8e9d-a3e70fb5da30"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "sys",
+        "files"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "result": {
+       "type": "array[object]"
+      }
+     },
+     "errorMessage": [],
+     "selected": false,
+     "payload__retry_times": 3
+    },
+    "position": {
+     "x": 0,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 0,
+     "y": 300
+    },
+    "width": 240,
+    "height": 120,
+    "selected": false
+   },
+   {
+    "id": "1793796512258",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "文件解析与表格识别",
+     "desc": "嵌入自定义的 Python ，可作为自定义方法级组件扩展。",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "hide": false
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "payload__code",
+       "type": "code",
+       "label": "Code",
+       "required": true
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "files",
+       "variable_readonly": false,
+       "type": "array[object]",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "54d56510-cd83-4f1d-a2c3-65c9b76cf2d2",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1793865552961",
+        "result",
+        "_ida99d50d6-826e-4a4d-8564-03f38ddb4c57"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "1793865552961",
+        "result"
+       ]
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "docs",
+       "variable_readonly": false,
+       "type": "array[dict]",
+       "type_readonly": false,
+       "id": "58ebe952-87ff-4709-b1ff-6754a2049379",
+       "defaultBooleanValue": false,
+       "readonly": false
+      },
+      {
+       "variable": "doc_stats",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": false,
+       "id": "b52d502c-46d4-4cf5-a545-e4d7f07ae805",
+       "defaultBooleanValue": false,
+       "readonly": false
+      }
+     ],
+     "name": "code",
+     "classification": "fundamental-component",
+     "payload__kind": "Code",
+     "config__can_run_by_single": true,
+     "payload__code": "def main(files: list[object]) -> dict:\n    import json, re\n    def get(v, *names, default=None):\n        for n in names:\n            if isinstance(v, dict) and n in v and v[n] not in (None, \"\"):\n                return v[n]\n        return default\n    docs = []\n    errors = []\n    for fi, f in enumerate(files or []):\n        if not isinstance(f, dict):\n            continue\n        fname = str(get(f, \"name\", \"filename\", \"file_name\", default=f\"文件{fi+1}\"))\n        url = str(get(f, \"url\", \"remote_url\", \"download_url\", default=\"\"))\n        content = get(f, \"content\", \"text\", \"extract\", default=\"\")\n        if not isinstance(content, str):\n            try:\n                content = json.dumps(content, ensure_ascii=False)\n            except Exception:\n                content = str(content)\n        rows = []\n        ctype = \"unknown\"\n        head = content[:4000]\n        # --- 表格类（CSV / 竖线 / 任意单字符分隔）解析 ---\n        lines = [ln for ln in content.replace(\"\\r\\n\", \"\\n\").replace(\"\\r\", \"\\n\").split(\"\\n\") if ln.strip()]\n        sep = None\n        if lines:\n            for c in [\",\", \"\\t\", \"|\", \";\", \"，\"]:\n                cnt = lines[0].count(c)\n                if cnt >= 2 and all(ln.count(c) >= cnt - 2 for ln in lines[: min(8, len(lines))]):\n                    sep = c\n                    break\n        if sep is not None:\n            ctype = \"table\"\n            def split_line(ln):\n                out, cur, inq = [], \"\", False\n                for ch in ln:\n                    if ch == '\"':\n                        inq = not inq\n                    elif ch == sep and not inq:\n                        out.append(cur.strip())\n                        cur = \"\"\n                    else:\n                        cur += ch\n                out.append(cur.strip())\n                return out\n            header = None\n            data_rows = 0\n            for ln in lines:\n                cells = split_line(ln)\n                non_num = sum(1 for c in cells if not re.fullmatch(r\"-?\\d+(\\.\\d+)?%?\", c))\n                if header is None and len(cells) >= 2 and non_num >= max(1, len(cells) // 2):\n                    header = cells\n                    continue\n                if header is not None and len(cells) == len(header):\n                    rows.append({header[i]: cells[i] for i in range(len(header))})\n                    data_rows += 1\n            if header is None or data_rows == 0:\n                ctype = \"unknown\"\n                rows = []\n        # --- 非表格：按行结构化 ---\n        if ctype == \"unknown\":\n            for ln in lines[:500]:\n                m = re.match(r\"^(.{1,30}?)[:：]\\s*(.+)$\", ln)\n                if m:\n                    rows.append({\"行文本\": ln, \"键\": m.group(1).strip(), \"值\": m.group(2).strip()})\n                else:\n                    rows.append({\"行文本\": ln})\n            if len(rows) < 3:\n                rows = [{\"行文本\": content[:2000]}]\n            ctype = \"document\"\n        stats = {\"文件名\": fname, \"类型\": ctype, \"行数\": len(rows), \"字符数\": len(content)}\n        if not rows:\n            errors.append({\"文件名\": fname, \"问题\": \"未能解析出任何行\"})\n        docs.append({\"文件名\": fname, \"类型\": ctype, \"行数据\": rows, \"统计\": stats, \"来源\": url or \"本地上传\"})\n    doc_stats = json.dumps({\n        \"文件数\": len(docs),\n        \"解析成功\": len([d for d in docs if d[\"行数据\"]]),\n        \"异常\": errors,\n        \"各文件统计\": [d[\"统计\"] for d in docs],\n    }, ensure_ascii=False)\n    return {\"docs\": docs, \"doc_stats\": doc_stats}\n",
+     "title_en": "Code",
+     "about": "自定义函数和测试输入，并在后台提供一个沙箱协助用户执行代码。沙箱中需要管控好用户的权限，拒绝用户做删除系统文件等危险操作。目前仅支持python。",
+     "errorMessage": [],
+     "selected": false,
+     "payload__code_language": "python3",
+     "payload__variables": [
+      {
+       "variable": "files",
+       "variable_readonly": false,
+       "type": "array[object]",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "54d56510-cd83-4f1d-a2c3-65c9b76cf2d2",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1793865552961",
+        "result",
+        "_ida99d50d6-826e-4a4d-8564-03f38ddb4c57"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "1793865552961",
+        "result"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "docs": {
+       "type": "array[dict]"
+      },
+      "doc_stats": {
+       "type": "string"
+      }
+     }
+    },
+    "position": {
+     "x": 300,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 300,
+     "y": 300
+    },
+    "width": 240,
+    "height": 200,
+    "selected": false
+   },
+   {
+    "id": "1793869838881",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "时空对齐与融合计算",
+     "desc": "嵌入自定义的 Python ，可作为自定义方法级组件扩展。",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "hide": false
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "payload__code",
+       "type": "code",
+       "label": "Code",
+       "required": true
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "docs",
+       "variable_readonly": false,
+       "type": "array[dict]",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "a2f10c95-1e22-4d3a-9c4f-0aa15e7bd001",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1793796512258",
+        "docs",
+        "_id58ebe952-87ff-4709-b1ff-6754a2049379"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "1793796512258",
+        "docs"
+       ]
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "fusion_result",
+       "variable_readonly": false,
+       "type": "dict",
+       "type_readonly": false,
+       "id": "c3f21e27-3a44-4f6e-9e6b-2cc47f9da003",
+       "defaultBooleanValue": false,
+       "readonly": false
+      },
+      {
+       "variable": "fusion_summary",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": false,
+       "id": "b7e20d16-2f33-4e5d-8d5a-1bb36e8cf002",
+       "defaultBooleanValue": false,
+       "readonly": false
+      }
+     ],
+     "name": "code",
+     "classification": "fundamental-component",
+     "payload__kind": "Code",
+     "config__can_run_by_single": true,
+     "payload__code": "def main(docs: list[dict]) -> dict:\n    import json, re\n    # ---- 空间线：站点 -> 枢纽 映射（hub_registry）----\n    HUB_MAP = {\n        \"青岛站\": {\"枢纽\": \"青岛站\", \"地铁\": [\"3号线青岛站\", \"1号线青岛站(换乘)\"]},\n        \"青岛北站\": {\"枢纽\": \"青岛北站\", \"地铁\": [\"3号线青岛北站\", \"1号线青岛北站\", \"8号线青岛北站\"]},\n        \"胶东机场\": {\"枢纽\": \"胶东机场\", \"地铁\": [\"8号线胶东机场站\"]},\n        \"青岛胶东国际机场\": {\"枢纽\": \"胶东机场\", \"地铁\": [\"8号线胶东机场站\"]},\n    }\n    MODE_KEYS = [\"地铁\", \"国铁\", \"铁路\", \"高铁\", \"航空\", \"机场\", \"航班\", \"公交\", \"P+R\", \"停车\", \"单车\"]\n    def norm_time(s):\n        m = re.search(r\"(\\d{1,2})[:：时](\\d{1,2})\", str(s))\n        if not m:\n            return None\n        h, mi = int(m.group(1)), int(m.group(2))\n        if h >= 24:\n            h -= 24\n        return h * 60 + mi\n    def hour_bucket(minute, next_day=False):\n        if minute is None:\n            return None\n        h = minute // 60\n        key = f\"{h:02d}-{h+1:02d}\" if h < 23 else \"23-24\"\n        if next_day and h < 5:\n            return \"夜-\" + key\n        return key\n    def find_col(row, cands):\n        for k, v in row.items():\n            kk = re.sub(r\"\\s\", \"\", str(k))\n            for c in cands:\n                if c in kk:\n                    return k, v\n        return None, None\n    def detect_mode(docname, row):\n        # 优先用文件名判方式（如\"胶东机场专报\"→航空），避免\"地铁分担人次\"等列名干扰\n        for m in MODE_KEYS:\n            if m in docname:\n                return {\"地铁\": \"地铁\", \"国铁\": \"国铁\", \"铁路\": \"国铁\", \"高铁\": \"国铁\",\n                        \"航空\": \"航空\", \"机场\": \"航空\", \"航班\": \"航空\", \"公交\": \"公交\",\n                        \"P+R\": \"P+R\", \"停车\": \"P+R\", \"单车\": \"单车\"}[m]\n        text = \"\".join(str(k) for k in row.keys())\n        for m in MODE_KEYS:\n            if m in text:\n                return {\"地铁\": \"地铁\", \"国铁\": \"国铁\", \"铁路\": \"国铁\", \"高铁\": \"国铁\",\n                        \"航空\": \"航空\", \"机场\": \"航空\", \"航班\": \"航空\", \"公交\": \"公交\",\n                        \"P+R\": \"P+R\", \"停车\": \"P+R\", \"单车\": \"单车\"}[m]\n        return \"未知\"\n    hubs = {}\n    issues = []\n    for doc in docs or []:\n        dname = doc.get(\"文件名\", \"\")\n        for row in doc.get(\"行数据\", []):\n            mode = detect_mode(dname, row)\n            _, hub_raw = find_col(row, [\"枢纽\", \"站点\", \"车站\", \"机场\"])\n            hub = HUB_MAP.get(str(hub_raw or \"\").strip(), {}).get(\"枢纽\") if hub_raw else None\n            if hub is None:\n                for hk in HUB_MAP:\n                    if hk in json.dumps(row, ensure_ascii=False) or hk in dname:\n                        hub = hk\n                        break\n            if hub is None:\n                continue\n            hub_obj = hubs.setdefault(hub, {\"方式\": {}, \"时段事件\": {}})\n            mode_obj = hub_obj[\"方式\"].setdefault(mode, {\"事件数\": 0, \"量级\": 0.0})\n            mode_obj[\"事件数\"] += 1\n            _, num_raw = find_col(row, [\"人次\", \"人数\", \"吞吐\", \"客流\", \"发送量\", \"到达量\"])\n            if num_raw is not None:\n                m = re.search(r\"[\\d.]+\", str(num_raw))\n                if m:\n                    try:\n                        mode_obj[\"量级\"] += float(m.group())\n                    except ValueError:\n                        pass\n            _, t1 = find_col(row, [\"到达时间\", \"到站时间\", \"进站时间\", \"时间\"])\n            _, t2 = find_col(row, [\"发车时间\", \"起飞时间\", \"出发时间\", \"开车时间\"])\n            for tv, nd in ((t1, False), (t2, False)):\n                mi = norm_time(tv) if tv is not None else None\n                bk = hour_bucket(mi, nd)\n                if bk:\n                    hub_obj[\"时段事件\"][bk] = hub_obj[\"时段事件\"].get(bk, 0) + 1\n    # ---- 时间线：全枢纽时段对齐矩阵 ----\n    all_buckets = sorted({b for h in hubs.values() for b in h[\"时段事件\"]})\n    time_matrix = {b: {hname: hobj[\"时段事件\"].get(b, 0) for hname, hobj in hubs.items()} for b in all_buckets}\n    peak = {}\n    for hname, h in hubs.items():\n        if h[\"时段事件\"]:\n            bk = max(h[\"时段事件\"], key=lambda k: h[\"时段事件\"][k])\n            peak[hname] = {\"高峰时段\": bk, \"事件数\": h[\"时段事件\"][bk]}\n    # ---- 高峰叠加检测（干线层方式间的时段交集）----\n    overlay = {}\n    for hname, h in hubs.items():\n        by_mode = {}\n        for mode_obj_rows in [h[\"方式\"]]:\n            pass\n        # 方式级时段在此前未细分，叠加检测退化为枢纽间/干线量级对比，留待明细扩展\n        overlay[hname] = {\"说明\": \"需方式级时段明细，本版按枢纽级时段对比\"}\n    result = {\n        \"枢纽数\": len(hubs),\n        \"枢纽清单\": sorted(hubs.keys()),\n        \"空间映射\": {hub_name: {\"方式统计\": hub_obj[\"方式\"]} for hub_name, hub_obj in hubs.items()},\n        \"时间对齐\": {\"时段\": all_buckets, \"矩阵\": time_matrix},\n        \"高峰\": peak,\n        \"叠加检测\": overlay,\n        \"问题清单\": issues,\n    }\n    summary = {\n        \"枢纽数\": result[\"枢纽数\"],\n        \"枢纽清单\": result[\"枢纽清单\"],\n        \"各枢纽方式统计\": result[\"空间映射\"],\n        \"高峰时段\": peak,\n        \"时段矩阵规模\": f\"{len(all_buckets)}时段 x {len(hubs)}枢纽\",\n    }\n    return {\"fusion_result\": result, \"fusion_summary\": json.dumps(summary, ensure_ascii=False)}\n",
+     "title_en": "Code",
+     "about": "自定义函数和测试输入，并在后台提供一个沙箱协助用户执行代码。沙箱中需要管控好用户的权限，拒绝用户做删除系统文件等危险操作。目前仅支持python。",
+     "errorMessage": [
+      "输入参数-请给arg1变量赋值",
+      "输入参数-请给arg2变量赋值"
+     ],
+     "selected": false,
+     "payload__variables": [
+      {
+       "variable": "docs",
+       "variable_readonly": false,
+       "type": "array[dict]",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "a2f10c95-1e22-4d3a-9c4f-0aa15e7bd001",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1793796512258",
+        "docs",
+        "_id58ebe952-87ff-4709-b1ff-6754a2049379"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "1793796512258",
+        "docs"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "fusion_result": {
+       "type": "dict"
+      },
+      "fusion_summary": {
+       "type": "string"
+      }
+     },
+     "payload__code_language": "python3"
+    },
+    "position": {
+     "x": 600,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 600,
+     "y": 300
+    },
+    "width": 240,
+    "height": 200,
+    "selected": false
+   },
+   {
+    "id": "1793789824150",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "融合分析解读",
+     "desc": "调用大语言模型，使用变量和提示词生成内容",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "type": "config__input_shape",
+       "name": "config__input_shape",
+       "label": "输入参数",
+       "tooltip": "输入需要添加到提示词的信息，这些信息可以被下方的提示词引用",
+       "notAllowedAddAndRemove": true
+      },
+      {
+       "tooltip": "大模型生成的输出内容",
+       "type": "config__output_shape",
+       "name": "config__output_shape",
+       "label": "输出参数",
+       "notAllowedAddAndRemove": true,
+       "onChangeCallbackKey": "error_handle_shape_sync_onChange"
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "label": "支持结构化输出",
+       "name": "payload__response_format",
+       "type": "select",
+       "defaultValue": "text",
+       "required": false,
+       "tooltip": "<div>文本：使用普通文本格式回复<br/>JSON：将引导模型使用JSON格式输出</div>",
+       "options": [
+        {
+         "label": "文本",
+         "value": "text"
+        },
+        {
+         "label": "JSON",
+         "value": "json"
+        }
+       ],
+       "onChangeCallbackKey": "online-llm-payload__response_format-onChange"
+      },
+      {
+       "name": "model_resource",
+       "label": "大模型",
+       "type": "cascader",
+       "required": true,
+       "options_fetch_api": "/mh/models_tree?qtype=already",
+       "itemProps": {
+        "optionRenderCallbackKey": "escall-model_resource-option-render"
+       },
+       "responseCallbackKey": "online-llm-model_resource-response",
+       "onChangeCallbackKey": "online-llm-model_resource-onChange",
+       "additionalComponentConfig": {
+        "type": "button_trigger_parameters_config",
+        "labelCol": 20,
+        "wrapperCol": 4,
+        "name": "payload__model_conf"
+       }
+      },
+      {
+       "label": "音频输出",
+       "name": "payload__audio_output_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-output-enable-onChange"
+      },
+      {
+       "label": "思考模式",
+       "name": "payload__enable_thinking",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!mb-0",
+       "required": false,
+       "tooltip": "开启后，模型会先进行推理思考，再生成最终回答。选择支持 #深度思考 功能的模型即可开启",
+       "readonly": true,
+       "onChangeCallbackKey": "online-llm-payload__enable_thinking-onChange"
+      },
+      {
+       "name": "payload__reasoning_split",
+       "type": "boolean",
+       "fieldProps": {
+        "label": "推理标签分离",
+        "layout": "horizontal",
+        "colon": false,
+        "labelAlign": "right"
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "className": "!pl-7",
+       "required": false,
+       "readonly": true,
+       "onChangeCallbackKey": "online-llm-payload__reasoning_split-onChange"
+      },
+      {
+       "label": "提示词",
+       "name": "payload__prompt.system",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "SYSTEM",
+        "titleTooltip": "设定模型的角色和行为模式，决定对话的整体基调和方向"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange",
+       "fieldExtraComponentConfig": {
+        "name": "payload__prompt.system",
+        "type": "button_trigger_prompt_template",
+        "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+       }
+      },
+      {
+       "name": "payload__prompt.user",
+       "type": "single_prompt",
+       "required": false,
+       "itemProps": {
+        "title": "USER",
+        "titleTooltip": "用户输入的具体问题或请求，决定模型在当前对话中的具体回答内容",
+        "placeholder": "在这里编写提示词，输入“{”插入变量、输入“/”插入提示内容块；\n当提示词为空时，将自动使用当前节点配置的输入参数作为提示词，填写后则以当前内容为准",
+        "placeholderClassName": "whitespace-pre-wrap"
+       },
+       "onChangeCallbackKey": "online-llm-payload__prompt-onChange"
+      },
+      {
+       "type": "vision_param",
+       "name": "vision_param",
+       "label": "视觉理解",
+       "tooltip": "开启视觉理解功能将允许模型输入图片，并根据图像内容的理解回答用户问题，选择支持 #视觉、#全模态 功能的模型即可开启"
+      },
+      {
+       "label": "语音理解",
+       "name": "payload__audio_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启语音理解功能将允许模型输入语音文件，并根据语音内容的理解回答用户问题。选择支持 #全模态 功能的模型即可开启",
+       "onChangeCallbackKey": "online-llm-payload__audio-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "audio_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__audio-variable-filterVar"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__audio-variable-onChange"
+      },
+      {
+       "label": "视频理解",
+       "name": "payload__video_enable",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "required": false,
+       "readonly": true,
+       "tooltip": "开启视频理解功能将允许模型输入视频，并根据视频内容的理解回答用户问题，选择支持 #视频、#全模态 功能的模型即可开启 ",
+       "onChangeCallbackKey": "online-llm-payload__video-enable-onChange"
+      },
+      {
+       "label": "",
+       "name": "video_param",
+       "type": "var_reference_picker_wrap",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small",
+        "filterVarCallbackKey": "online-llm-payload__video-variable-onChange"
+       },
+       "readonly": true,
+       "required": false,
+       "onChangeCallbackKey": "online-llm-payload__video-variable-filterVar"
+      },
+      {
+       "label": "支持上下文对话",
+       "name": "payload__use_history",
+       "type": "boolean",
+       "fieldProps": {
+        "layout": "horizontal",
+        "colon": false
+       },
+       "itemProps": {
+        "size": "small"
+       },
+       "defaultValue": false,
+       "required": false,
+       "tooltip": "模型能够收到前轮对话内容以丰富背景信息输入",
+       "isChatModeRemain": true,
+       "onChangeCallbackKey": "online-llm-payload__use_history-onChange"
+      },
+      {
+       "label": "上下文窗口大小",
+       "name": "payload__context_window_size",
+       "type": "slider",
+       "defaultValue": 50,
+       "required": false,
+       "hide": false,
+       "itemProps": {
+        "min": 1,
+        "max": 100
+       }
+      },
+      {
+       "label": "异常处理",
+       "name": "error_strategy",
+       "type": "error_handle",
+       "tooltip": "配置异常处理策略，当节点发生异常时触发"
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "query",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "d4a31f08-9b52-4c71-8f3d-6cd58e2fa004",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "sys",
+        "query",
+        "_ide1538b97-66aa-4896-a835-c491825fdaf2"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "sys",
+        "query"
+       ]
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "text",
+       "variable_readonly": true,
+       "type": "string",
+       "type_readonly": true,
+       "variable_allow_clear": false,
+       "id": "878b7667-ea6c-448e-ac1a-689cf5d008a6"
+      }
+     ],
+     "name": "online-llm",
+     "classification": "basic-model",
+     "payload__kind": "OnlineLLM",
+     "payload__stream": true,
+     "title_en": "OnlineLLM",
+     "config__can_run_by_single": true,
+     "payload__variables": [
+      {
+       "variable": "query",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "d4a31f08-9b52-4c71-8f3d-6cd58e2fa004",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "sys",
+        "query",
+        "_ide1538b97-66aa-4896-a835-c491825fdaf2"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "sys",
+        "query"
+       ]
+      }
+     ],
+     "payload__version": 2,
+     "payload__vision_enable": false,
+     "vision_param": {
+      "var_value": []
+     },
+     "payload__outputs": {
+      "text": {
+       "type": "string"
+      }
+     },
+     "payload__prompt": {
+      "system": "你是地铁多网融合场景下的多源客流数据融合分析专家。职责：\n1. 解读上游代码节点给出的融合指标摘要（枢纽方式统计、时段矩阵、高峰时段），用业务语言说明各枢纽的集散结构、方式分担与高峰特征；\n2. 指出时间线（时段对齐、跨日、高峰叠加）与空间线（站点-枢纽映射、多方式层级）上值得关注的融合发现与风险；\n3. 给出面向运营的组织建议（末班衔接、高峰加密、接驳协同方向）。\n铁律：只依据输入摘要中的数字与事实，禁止重算指标、禁止编造摘要外的数值/站点/时段；摘要未覆盖的方面写\"本版数据未覆盖\"。输出使用Markdown，用二级标题分节（如\"## 枢纽集散结构\"），不输出内部编号。",
+      "user": "用户问题：{{#sys.query#}}\n\n融合指标摘要如下：\n{{#1793869838881.fusion_summary._idb7e20d16-2f33-4e5d-8d5a-1bb36e8cf002#}}\n\n请按\"枢纽集散结构 → 时段与高峰 → 融合发现与风险 → 运营组织建议\"的顺序输出分析，每节不超过200字。"
+     },
+     "payload__model_type": "online",
+     "about": "",
+     "payload__response_format": "text",
+     "payload__use_history": true,
+     "payload__context_window_size": 50,
+     "errorMessage": [
+      "存在无效变量"
+     ],
+     "selected": false,
+     "model_resource": [
+      "129",
+      "149"
+     ],
+     "payload__online_model_brand": "129",
+     "payload__online_model_id": "149",
+     "payload__model_conf": {},
+     "payload__audio_variable": {},
+     "payload__video_variable": {},
+     "payload__vision_variable": {},
+     "isVisionSwitchCanUse": false,
+     "payload__prompt.system": "你是地铁多网融合场景下的多源客流数据融合分析专家。职责：\n1. 解读上游代码节点给出的融合指标摘要（枢纽方式统计、时段矩阵、高峰时段），用业务语言说明各枢纽的集散结构、方式分担与高峰特征；\n2. 指出时间线（时段对齐、跨日、高峰叠加）与空间线（站点-枢纽映射、多方式层级）上值得关注的融合发现与风险；\n3. 给出面向运营的组织建议（末班衔接、高峰加密、接驳协同方向）。\n铁律：只依据输入摘要中的数字与事实，禁止重算指标、禁止编造摘要外的数值/站点/时段；摘要未覆盖的方面写\"本版数据未覆盖\"。输出使用Markdown，用二级标题分节（如\"## 枢纽集散结构\"），不输出内部编号。",
+     "payload__prompt.user": "用户问题：{{#sys.query#}}\n\n融合指标摘要如下：\n{{#1793869838881.fusion_summary._idb7e20d16-2f33-4e5d-8d5a-1bb36e8cf002#}}\n\n请按\"枢纽集散结构 → 时段与高峰 → 融合发现与风险 → 运营组织建议\"的顺序输出分析，每节不超过200字。"
+    },
+    "position": {
+     "x": 900,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 900,
+     "y": 300
+    },
+    "width": 240,
+    "height": 200,
+    "selected": false
+   },
+   {
+    "id": "17d5f0a1c3b1",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "报告装配",
+     "desc": "嵌入自定义的 Python ，可作为自定义方法级组件扩展。",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [
+      {
+       "id": "source"
+      }
+     ],
+     "config__parameters": [
+      {
+       "name": "config__input_shape",
+       "type": "config__input_shape",
+       "label": "输入参数",
+       "effects": "",
+       "hide": false
+      },
+      {
+       "name": "config__output_shape",
+       "type": "config__output_shape",
+       "label": "输出参数",
+       "effects": "",
+       "min": 1,
+       "max": 1,
+       "hide": false
+      },
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "name": "payload__code",
+       "type": "code",
+       "label": "Code",
+       "required": true
+      }
+     ],
+     "config__input_shape": [
+      {
+       "variable": "fusion_summary",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "e5f42a18-6b63-4d7f-a0c8-3dd85f0gb001",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1793869838881",
+        "fusion_summary",
+        "_idb7e20d16-2f33-4e5d-8d5a-1bb36e8cf002"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "1793869838881",
+        "fusion_summary"
+       ]
+      },
+      {
+       "variable": "analysis_text",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "e5f42a18-6b63-4d7f-a0c8-3dd85f0gb002",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1793789824150",
+        "text",
+        "_id878b7667-ea6c-448e-ac1a-689cf5d008a6"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "1793789824150",
+        "text"
+       ]
+      }
+     ],
+     "config__output_shape": [
+      {
+       "variable": "report_md",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": false,
+       "id": "f6a53b29-7c74-4e8f-b1d9-4ee960ahc005",
+       "defaultBooleanValue": false,
+       "readonly": false
+      }
+     ],
+     "name": "code",
+     "classification": "fundamental-component",
+     "payload__kind": "Code",
+     "config__can_run_by_single": true,
+     "payload__code": "def main(fusion_summary: str, analysis_text: str) -> dict:\n    import json, re\n    try:\n        s = json.loads(fusion_summary)\n        if not isinstance(s, dict):\n            s = {\"原始摘要\": str(s)}\n    except Exception:\n        s = {\"原始摘要\": fusion_summary}\n    heads = []\n    for m in re.finditer(r\"^#{1,3} .+$\", analysis_text or \"\", flags=re.M):\n        heads.append(m.group().strip())\n    dups = [x for x in set(heads) if heads.count(x) > 1]\n    if dups:\n        raise ValueError(\"分析章节标题重复：\" + \",\".join(dups))\n    def fmt(x):\n        if isinstance(x, dict):\n            return json.dumps(x, ensure_ascii=False, indent=1)\n        if isinstance(x, list):\n            return \"、\".join(str(i) for i in x[:20])\n        return str(x)\n    lines = [\"# 多源客流融合分析报告\", \"\"]\n    lines.append(\"## 一、融合指标摘要\")\n    lines.append(fmt(s))\n    lines.append(\"\")\n    lines.append(\"## 二、专题分析\")\n    lines.append((analysis_text or \"\").strip() or \"（模型未返回分析正文）\")\n    lines.append(\"\")\n    report_md = \"\\n\".join(lines).strip()\n    return {\"report_md\": report_md}\n",
+     "title_en": "Code",
+     "about": "自定义函数和测试输入，并在后台提供一个沙箱协助用户执行代码。沙箱中需要管控好用户的权限，拒绝用户做删除系统文件等危险操作。目前仅支持python。",
+     "errorMessage": [
+      "输入参数-请给arg1变量赋值",
+      "输入参数-请给arg2变量赋值"
+     ],
+     "selected": false,
+     "payload__variables": [
+      {
+       "variable": "fusion_summary",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "e5f42a18-6b63-4d7f-a0c8-3dd85f0gb001",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1793869838881",
+        "fusion_summary",
+        "_idb7e20d16-2f33-4e5d-8d5a-1bb36e8cf002"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "1793869838881",
+        "fusion_summary"
+       ]
+      },
+      {
+       "variable": "analysis_text",
+       "variable_readonly": false,
+       "type": "string",
+       "type_readonly": false,
+       "variable_allow_clear": false,
+       "id": "e5f42a18-6b63-4d7f-a0c8-3dd85f0gb002",
+       "defaultBooleanValue": false,
+       "readonly": false,
+       "variable_channel": [
+        "1793789824150",
+        "text",
+        "_id878b7667-ea6c-448e-ac1a-689cf5d008a6"
+       ],
+       "type_readonly_initial": false,
+       "is_constant": false,
+       "value_selector": [
+        "1793789824150",
+        "text"
+       ]
+      }
+     ],
+     "payload__outputs": {
+      "report_md": {
+       "type": "string"
+      }
+     },
+     "payload__code_language": "python3"
+    },
+    "position": {
+     "x": 1200,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 1200,
+     "y": 300
+    },
+    "width": 240,
+    "height": 200,
+    "selected": false
+   },
+   {
+    "id": "1793796612131",
+    "type": "custom",
+    "data": {
+     "type": "universe",
+     "title": "融合分析报告",
+     "desc": "流程的结束节点",
+     "config__input_ports": [
+      {
+       "id": "target"
+      }
+     ],
+     "config__output_ports": [],
+     "config__parameters": [
+      {
+       "name": "config__input_ports",
+       "type": "config__input_ports",
+       "label": "输入端点",
+       "effects": "",
+       "tooltip": "将输入变量格式化解析并输出，提取期望的字段",
+       "hide": true
+      },
+      {
+       "label": "输出模版",
+       "name": "payload__output_template",
+       "type": "single_prompt",
+       "required": true,
+       "itemProps": {
+        "title": ""
+       }
+      }
+     ],
+     "name": "output",
+     "classification": "fundamental-component",
+     "payload__kind": "Output",
+     "title_en": "output",
+     "config__input_shape": [],
+     "config__output_shape": [],
+     "errorMessage": [],
+     "selected": false,
+     "payload__output_template": "{{#17d5f0a1c3b1.report_md._idf6a53b29-7c74-4e8f-b1d9-4ee960ahc005#}}"
+    },
+    "position": {
+     "x": 1500,
+     "y": 300
+    },
+    "targetPosition": "left",
+    "sourcePosition": "right",
+    "positionAbsolute": {
+     "x": 1500,
+     "y": 300
+    },
+    "width": 195,
+    "height": 88,
+    "selected": false
+   }
+  ],
+  "note_nodes": [],
+  "edges": [
+   {
+    "id": "bb0a6651-0d0c-4ded-8791-0b00210121c6-source-1793865552961-target",
+    "type": "custom",
+    "source": "bb0a6651-0d0c-4ded-8791-0b00210121c6",
+    "target": "1793865552961",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "start",
+     "targetType": "universe",
+     "targetNodeName": "docExtract",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1793865552961-source-1793796512258-target",
+    "type": "custom",
+    "source": "1793865552961",
+    "target": "1793796512258",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "code",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1793796512258-source-1793869838881-target",
+    "type": "custom",
+    "source": "1793796512258",
+    "target": "1793869838881",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "code",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1793869838881-source-1793789824150-target",
+    "type": "custom",
+    "source": "1793869838881",
+    "target": "1793789824150",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "online-llm",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "1793789824150-source-17d5f0a1c3b1-target",
+    "type": "custom",
+    "source": "1793789824150",
+    "target": "17d5f0a1c3b1",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "code",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   },
+   {
+    "id": "17d5f0a1c3b1-source-1793796612131-target",
+    "type": "custom",
+    "source": "17d5f0a1c3b1",
+    "target": "1793796612131",
+    "sourceHandle": "source",
+    "targetHandle": "target",
+    "data": {
+     "sourceType": "universe",
+     "targetType": "universe",
+     "targetNodeName": "output",
+     "isInLoop": false
+    },
+    "zIndex": 0
+   }
+  ],
+  "viewport": {
+   "x": 0,
+   "y": 200,
+   "zoom": 0.5
+  },
+  "environment_variables": [],
+  "conversation_variables": [],
+  "graph_version": "draft"
+ }
+}

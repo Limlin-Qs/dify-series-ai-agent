@@ -1,0 +1,21 @@
+# 依赖与环境
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# 密钥与本地配置
+.env
+.env.local
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# 构建与缓存
+dist/
+build/
+*.log

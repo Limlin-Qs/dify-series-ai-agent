@@ -1,0 +1,28 @@
+### Sheet: Result 1  (9240行 x 6列)
+id | parentId | name | nodeType | nodeCode | isTerritoriality
+1467 | 0 | 2号线二期 | PROJECT | 2>hx2q | null
+16384 | 0 | 2号线西延段 | PROJECT | 2hx*xyzh | null
+1496 | 0 | 5号线 | PROJECT | >5hx | null
+14798 | 0 | 6号线一期 | PROJECT | 6h#xyq | null
+1562 | 0 | 6号线二期 | PROJECT | 6h<x2q | null
+1250 | 0 | 7号线二期 | PROJECT | 7h?x | null
+1871 | 0 | 8号线 | PROJECT | 8hx@ | null
+1587 | 0 | 8号线支线 | PROJECT | 8hx#zx | null
+1640 | 0 | 9号线一期 | PROJECT | 9hx+ | null
+1000 | 0 | 15号线一期 | PROJECT | $15hx | null
+10087 | 0 | 创新工作室 | PROJECT | cx*gzs | null
+25183 | 0 | 既有线 | PROJECT | jy*x | null
+1469 | 1467 | 施工单位 | MAIN | null | null
+1481 | 1467 | 勘察单位 | MAIN | null | null
+1480 | 1467 | 设计单位 | MAIN | null | null
+1478 | 1467 | 监理单位 | MAIN | null | null
+1479 | 1467 | 第三方监测 | MAIN | null | null
+1482 | 1467 | 第三方咨询 | MAIN | null | null
+1000212 | 1467 | 供货集成单位 | MAIN | null | null
+1000069 | 16384 | 施工单位 | MAIN | null | null
+1000099 | 16384 | 设计单位 | MAIN | null | null
+1000071 | 16384 | 监理单位 | MAIN | null | null
+1000073 | 16384 | 第三方咨询 | MAIN | null | null
+1000104 | 16384 | 供货集成单位 | MAIN | null | null
+...(共9240行，预览25行)
+### Sheet: Query  (1行 x 1列)
