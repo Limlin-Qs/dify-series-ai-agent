@@ -10,14 +10,15 @@
 - 后端依赖：查重系统需已启动（Windows侧 localhost:4009，双击桌面快捷方式）
 - 代码：server.py（约230行，含中文注释）
 
-## 工具清单（5个）
+## 工具清单（6个）
 
 | 工具 | 类型 | 说明 |
 |---|---|---|
 | search_projects | 查询 | 关键词/类别检索项目库，裁掉content长文本 |
 | get_project_detail | 查询 | 单项目全文（查重命中后看原文） |
-| submit_check | 写 | 提交查重任务（异步），返回taskId |
+| submit_check | 写 | 提交单项目查重任务（异步），返回taskId |
 | get_check_result | 查询 | 轮询结果：overallScore/status/命中来源 |
+| batch_check | 写 | 批量查重（同步）：传入行对象数组，一次返回全部结果，无需轮询；每行落库并共享batchId |
 | get_history | 查询 | 历史查重记录 |
 
 ## 启动与验证
@@ -51,6 +52,7 @@ npx -y mcporter call --http-url http://localhost:8902/mcp --allow-http \
 2. cmd+curl 经 subprocess 转发 POST body 会静默丢失（引号多层变形，无报错）→ 用 powershell.exe Invoke-RestMethod，body 落盘 D 盘传路径
 3. 中文输出必须 `[Console]::OutputEncoding=UTF8`，否则GBK乱码
 4. GET 的中文 query 参数要预先 urlencode
+5. 后端分页参数名是 **pageSize 不是 limit**（传 limit 会被静默忽略、固定返回20条），且列表接口不带精简时单次响应可达4万字符 → 必须传 pageSize + dynamicData 长文本截断
 
 ## 部署到云服务器（给极视角用）
 

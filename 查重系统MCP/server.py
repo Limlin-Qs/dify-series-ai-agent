@@ -13,7 +13,7 @@
 """
 import json
 import subprocess
-from typing import Optional
+from typing import Any, Dict, List, Optional
 
 from fastmcp import FastMCP
 
@@ -26,10 +26,11 @@ USE_WIN_BRIDGE = True                # WSL里跑时，通过 cmd.exe /c curl 转
 mcp = FastMCP(
     name="innovation_dup_check",
     instructions=(
-        "青岛地铁科技创新项目查重系统只读查询服务。"
-        "提供：项目库检索（按名称/部门/类别）、查重任务提交与结果轮询、查重历史查询，共5个工具。"
+        "青岛地铁科技创新项目查重系统查询与检测服务。"
+        "提供：项目库检索（按名称/部门/类别）、单项目查重（异步）、批量查重（同步）、查重历史查询，共6个工具。"
         "项目类别 wuxiao=五小 / technology=科技创新 / management=管理创新；"
-        "查重为异步任务：先 submit_check 拿 taskId，再轮询 get_check_result 直到 status=completed；"
+        "单项目查重为异步任务：先 submit_check 拿 taskId，再轮询 get_check_result 直到 status=completed；"
+        "批量查重用 batch_check：传入行对象数组，同步返回每行结果，无需轮询；"
         "相似度阈值 threshold 取值5-50，默认20，越大越严。"
         "本服务不提供删除接口；导入项目请走系统页面。"
     ),
@@ -105,7 +106,7 @@ def _clip(obj, max_chars: int = 6000):
     if len(s) <= max_chars:
         return obj
     return {"success": True, "code": 0, "message": f"结果过长已截断（原始{len(s)}字符）",
-            "data": json.loads(s[:max_chars])}
+            "data": s[:max_chars]}
 
 
 # ============================ 工具区 ============================
@@ -171,6 +172,51 @@ def submit_check(
         "threshold": threshold,
         "category": category,
     }, timeout=60)
+
+
+def _opt_str(v: Optional[str]) -> str:
+    """平台可能把未填参数传成None——归一成空串"""
+    return v if isinstance(v, str) else ""
+
+
+def _opt_int(v, default: int) -> int:
+    """平台可能把未填参数传成None——归一成默认值"""
+    return v if isinstance(v, int) and not isinstance(v, bool) else default
+
+
+@mcp.tool()
+def batch_check(
+    rows: Optional[List[Dict[str, Any]]] = None,
+    threshold: int = 20,
+    category: str = "all",
+) -> dict:
+    """批量查重（同步）：一次提交多个项目，直接返回全部结果，无需轮询。
+    用于：季度项目收集表整表查重、批量入库前的重复性摸底。
+    参数：
+      rows: 行数组，每行为「列名→值」对象（如Excel解析结果）。
+            项目名自动从 项目/项目名称/成果主题/项目主题 提取；
+            申报人从 申报人/入库责任人/联系人/作者/负责人 提取；每行全部值拼接为对比内容
+      threshold: 相似度阈值，默认20（≥该值才计为匹配）
+      category: 对比范围 wuxiao/technology/management/all，默认all
+    返回：batchId（批次ID）、totalChecked（检查总数）、totalMatched（有匹配数），
+         及每行结果（projectName/author/department/overallScore/status/
+         matchedCount/matchedSources/taskId）。
+         每行落库为一条completed任务，可用 get_check_result 按taskId复看。"""
+    if not isinstance(rows, list) or not rows:
+        return {"success": False, "code": 400,
+                "message": "rows 不能为空，需为行对象数组", "data": None}
+    res = _http("POST", "/api/plagiarism/check-batch", {
+        "data": rows,
+        "threshold": _opt_int(threshold, 20),
+        "category": _opt_str(category) or "all",
+    }, timeout=180)
+    # 批量结果可能超长：先逐行去掉matchedSources明细再裁剪（明细可用taskId复看）
+    s = json.dumps(res, ensure_ascii=False)
+    if len(s) > 8000 and res.get("success") and isinstance(res.get("data"), dict):
+        for r in res["data"].get("results", []):
+            if isinstance(r, dict):
+                r.pop("matchedSources", None)
+    return _clip(res, max_chars=8000)
 
 
 @mcp.tool()
